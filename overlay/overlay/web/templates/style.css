@@ -1,0 +1,383 @@
+/* Importar fuentes */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
+/* Estilos generales */
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    padding: 10px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 200, 255, 0.7);
+    text-transform: uppercase;
+}
+
+h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0, 200, 255, 0.7);
+}
+
+
+/* Timing Tower */
+
+.timing-tower {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    border: 2px solid #0e4c8a;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.timing-tower::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 5px 5px;
+    pointer-events: none;
+}
+
+.timing-header {
+    background: linear-gradient(to right, #0a3b6b, #0d4a85);
+    padding: 8px 15px;
+    font-weight: 700;
+    border-bottom: 1px solid #1a5c9a;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+}
+
+.timing-row {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    padding: 4px 10px;
+    border-bottom: 1px solid rgba(10, 80, 150, 0.5);
+    transition: background-color 0.3s;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+}
+
+.timing-row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.2) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.2) 75%);
+    background-size: 5px 5px;
+    z-index: 1;
+}
+
+.timing-row:hover {
+    background-color: rgba(20, 100, 180, 0.3);
+}
+
+
+/* Estilos para posiciones */
+
+.position-1 {
+    border-left: 3px solid #ffcc00;
+    background-color: rgba(255, 204, 0, 0.1);
+}
+
+.position-2 {
+    border-left: 3px solid #c0c0c0;
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+.position-3 {
+    border-left: 3px solid #cd7f32;
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+
+/* Estilos para elementos de información */
+
+.session-info {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    border: 2px solid #0e4c8a;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.session-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 5px 5px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.session-timer {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+#session-laps {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: #00ccff;
+}
+
+.session-type-indicator {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Estilos para columnas */
+
+.column-selector {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    border: 2px solid #0e4c8a;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.column-selector::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 5px 5px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.form-check {
+    position: relative;
+    z-index: 1;
+}
+
+.form-check-input:checked {
+    background-color: #00ccff;
+    border-color: #00ccff;
+}
+
+.form-check-label {
+    color: #fff;
+}
+
+
+/* Estilos para el botón de aplicar */
+
+.btn-primary {
+    background: linear-gradient(to right, #0a3b6b, #0d4a85);
+    border-color: #1a5c9a;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 100, 200, 0.5);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #0d4a85, #0e4c8a);
+    border-color: #1a5c9a;
+}
+
+
+/* Estilos para el área de depuración */
+
+.debug-info {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    border: 2px solid #0e4c8a;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.debug-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 5px 5px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#debug-json {
+    position: relative;
+    z-index: 1;
+    color: #7e9cb9;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+}
+
+
+/* Estilos para el indicador de conexión */
+
+.connection-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.connected {
+    background-color: #00ff00;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+.disconnected {
+    background-color: #ff3300;
+    box-shadow: 0 0 5px #ff3300;
+}
+
+
+/* Badge personalizado */
+
+.badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bg-secondary {
+    background-color: #1a5c9a !important;
+}
+
+.bg-info {
+    background-color: #0d4a85 !important;
+}
+
+.bg-warning {
+    background-color: #ffcc00 !important;
+}
+
+.bg-danger {
+    background-color: #ff3300 !important;
+}
+
+
+/* Estilos para los textos */
+
+#session-name {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+#track-name {
+    color: #00ccff;
+    font-weight: 600;
+}
+
+#connection-status {
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+}
+
+
+/* Estilos para la tabla de datos */
+
+.row>[class*="col-"] {
+    padding: 0 5px;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.timing-row .col-1:first-child {
+    font-weight: 700;
+    color: #fff;
+}
+
+.timing-row .col-1:nth-child(2) {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+
+/* Estilos para animaciones */
+
+.timing-row.changed {
+    animation: highlight 1.5s ease-out;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(255, 204, 0, 0.5);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+
+/* Estilos para información de tiempo y vueltas */
+
+.col-2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+}
+
+.timing-row .col-2:nth-child(6),
+.timing-row .col-2:nth-child(7) {
+    color: #00ccff;
+}

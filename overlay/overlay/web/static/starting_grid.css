@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* --- ANIMATIONS --- */
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(-6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes poleGlow {
+    0%, 100% {
+        box-shadow: 0 0 6px rgba(0, 180, 200, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 14px rgba(0, 180, 200, 0.5);
+    }
+}
+
+@keyframes startLineReveal {
+    from {
+        width: 0%;
+        opacity: 0;
+    }
+    to {
+        width: 80%;
+        opacity: 1;
+    }
+}
+
+body {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.grid-container {
+    position: absolute;
+    left: 20px;
+    top: 8px;
+    width: 310px;
+    font-family: 'Rajdhani', sans-serif;
+    color: #fff;
+}
+
+/* --- HEADER --- */
+.grid-header {
+    background: linear-gradient(to right, #004050, #005060);
+    padding: 6px 12px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+    border-bottom: 2px solid #00b4c8;
+    text-align: center;
+    animation: fadeInDown 0.5s ease both;
+}
+
+.grid-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.grid-track {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    color: rgba(0, 200, 255, 0.7);
+    margin-top: 1px;
+    letter-spacing: 1px;
+}
+
+/* --- TRACK BODY --- */
+.grid-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 0 10px 0;
+    background: linear-gradient(
+        to right,
+        rgba(10, 30, 50, 0.9) 0%,
+        rgba(20, 50, 80, 0.85) 45%,
+        rgba(30, 60, 90, 0.8) 50%,
+        rgba(20, 50, 80, 0.85) 55%,
+        rgba(10, 30, 50, 0.9) 100%
+    );
+    border-left: 1px solid rgba(0, 180, 200, 0.3);
+    border-right: 1px solid rgba(0, 180, 200, 0.3);
+    border-bottom: 1px solid rgba(0, 180, 200, 0.3);
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+}
+
+/* Center dashed line (track center) */
+.grid-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+    z-index: 0;
+}
+
+/* Side track edge lines */
+.grid-body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    border-left: 2px solid rgba(255, 255, 255, 0.06);
+    border-right: 2px solid rgba(255, 255, 255, 0.06);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* --- GRID SLOT (each driver) --- */
+.grid-slot {
+    display: flex;
+    align-items: center;
+    width: 140px;
+    height: 28px;
+    padding: 2px 6px;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+    border-radius: 3px;
+    margin: 1px 0;
+    background: rgba(6, 34, 64, 0.9);
+    border: 1px solid rgba(0, 180, 200, 0.15);
+    opacity: 0;
+}
+
+/* Stagger: odd positions LEFT, even positions RIGHT */
+.grid-slot.grid-left {
+    margin-right: 80px;
+    align-self: flex-start;
+    margin-left: 22px;
+    animation: slideInLeft 0.4s ease both;
+    animation-delay: var(--delay, 0s);
+}
+
+.grid-slot.grid-right {
+    margin-left: 80px;
+    align-self: flex-end;
+    margin-right: 22px;
+    animation: slideInRight 0.4s ease both;
+    animation-delay: var(--delay, 0s);
+}
+
+/* Start/finish line before P1 */
+.grid-start-line {
+    width: 80%;
+    height: 0;
+    border-top: 2px dashed rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px;
+    z-index: 1;
+    position: relative;
+    animation: startLineReveal 0.6s ease both;
+    animation-delay: 0.2s;
+}
+
+.grid-start-label {
+    position: absolute;
+    right: 0;
+    top: -9px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+/* --- POLE (P1) highlight --- */
+.grid-slot.grid-pole {
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    background: linear-gradient(135deg, rgba(0, 60, 80, 0.95), rgba(6, 34, 64, 0.95));
+    animation: slideInLeft 0.4s ease both, poleGlow 2s ease-in-out infinite;
+    animation-delay: var(--delay, 0s), 1s;
+}
+
+/* --- Position number --- */
+.grid-pos {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 13px;
+    color: #D7862b;
+    text-shadow: 0 0 4px rgba(215, 134, 43, 0.5);
+    min-width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* --- Dorsal image --- */
+.grid-dorsal {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* --- Driver info --- */
+.grid-driver-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+    flex: 1;
+}
+
+.grid-car-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    color: #D7862b;
+    text-shadow: 0 0 3px rgba(215, 134, 43, 0.4);
+    line-height: 1;
+}
+
+.grid-driver-name {
+    font-family: 'Kanit', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    color: #fff;
+}
+
+/* Row connector lines (grid box marks) */
+.grid-slot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.grid-slot.grid-left::before {
+    right: -42px;
+}
+
+.grid-slot.grid-right::before {
+    left: -42px;
+}
+
+/* Pole badge */
+.grid-pole-badge {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 6px;
+    font-weight: 700;
+    color: rgba(0, 200, 255, 0.7);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

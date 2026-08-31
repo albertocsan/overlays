@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Starting Grid Presentation</title>
+    <style>
+         :root {
+            --f1-red: #e10600;
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --grid-text: #ffffff;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        .f1-logo {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: white;
+            text-align: left;
+            padding: 10px 20px;
+            background-color: #000000;
+            display: inline-block;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .grid-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-top: 5px solid var(--f1-red);
+        }
+        
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/api/placeholder/1200/600') center/cover;
+            z-index: -1;
+        }
+        
+        .grid-title {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .driver-comparison {
+            display: none;
+            justify-content: space-between;
+            width: 100%;
+            height: calc(100% - 80px);
+            position: relative;
+        }
+        
+        .driver-comparison.active {
+            display: flex;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .driver {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .driver.left {
+            align-items: flex-start;
+            padding-left: 50px;
+        }
+        
+        .driver.right {
+            align-items: flex-end;
+            padding-right: 50px;
+        }
+        
+        .driver-name {
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        
+        .driver-position {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--f1-red);
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .position-suffix {
+            font-size: 30px;
+            position: absolute;
+            top: 10px;
+            right: -30px;
+        }
+        
+        .team-logo {
+            width: 120px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .ferrari-logo {
+            background-image: url('/api/placeholder/120/60');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .team-name {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .starting-grid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+        
+        .grid-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .grid-position {
+            width: 60px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid white;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--grid-text);
+        }
+        
+        .highlighted {
+            background-color: rgba(225, 6, 0, 0.8);
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: var(--f1-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            background-color: #ff0000;
+        }
+        
+        .comparison-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #555;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .nav-dot.active {
+            background-color: var(--f1-red);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="f1-logo">FORMULA 1</div>
+            <div class="event-title">2025 ROLEX SPANISH GRAND PRIX</div>
+        </div>
+
+        <div class="controls">
+            <button id="prev-btn">Anterior</button>
+            <button id="next-btn">Siguiente</button>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-bg"></div>
+            <div class="grid-title">STARTING GRID</div>
+
+            <div class="starting-grid">
+                <div class="grid-row">
+                    <div class="grid-position" id="p1">1<br>HAM</div>
+                    <div class="grid-position" id="p2">2<br>BOT</div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-position" id="p3">3<br>VET</div>
+                    <div class="grid-position" id="p4">4<br>LEC</div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-position" id="p5">5<br>VER</div>
+                    <div class="grid-position" id="p6">6<br>GAS</div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-position" id="p7">7<br>RIC</div>
+                    <div class="grid-position" id="p8">8<br>HUL</div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-position" id="p9">9<br>MAG</div>
+                    <div class="grid-position" id="p10">10<br>NOR</div>
+                </div>
+            </div>
+
+            <!-- Comparaciones de pilotos -->
+            <div class="driver-comparison" id="comparison-1">
+                <div class="driver left">
+                    <div class="driver-name">Lewis<br>HAMILTON</div>
+                    <div class="driver-position">1<span class="position-suffix">st</span></div>
+                    <div class="team-logo">Mercedes</div>
+                    <div class="team-name">Mercedes</div>
+                </div>
+
+                <div class="driver right">
+                    <div class="driver-name">Valtteri<br>BOTTAS</div>
+                    <div class="driver-position">2<span class="position-suffix">nd</span></div>
+                    <div class="team-logo">Mercedes</div>
+                    <div class="team-name">Mercedes</div>
+                </div>
+            </div>
+
+            <div class="driver-comparison" id="comparison-2">
+                <div class="driver left">
+                    <div class="driver-name">Sebastian<br>VETTEL</div>
+                    <div class="driver-position">3<span class="position-suffix">rd</span></div>
+                    <div class="team-logo ferrari-logo"></div>
+                    <div class="team-name">Ferrari</div>
+                </div>
+
+                <div class="driver right">
+                    <div class="driver-name">Charles<br>LECLERC</div>
+                    <div class="driver-position">4<span class="position-suffix">th</span></div>
+                    <div class="team-logo ferrari-logo"></div>
+                    <div class="team-name">Ferrari</div>
+                </div>
+            </div>
+
+            <div class="driver-comparison" id="comparison-3">
+                <div class="driver left">
+                    <div class="driver-name">Max<br>VERSTAPPEN</div>
+                    <div class="driver-position">5<span class="position-suffix">th</span></div>
+                    <div class="team-logo">Red Bull</div>
+                    <div class="team-name">Red Bull Racing</div>
+                </div>
+
+                <div class="driver right">
+                    <div class="driver-name">Pierre<br>GASLY</div>
+                    <div class="driver-position">6<span class="position-suffix">th</span></div>
+                    <div class="team-logo">Red Bull</div>
+                    <div class="team-name">Red Bull Racing</div>
+                </div>
+            </div>
+
+            <div class="driver-comparison" id="comparison-4">
+                <div class="driver left">
+                    <div class="driver-name">Daniel<br>RICCIARDO</div>
+                    <div class="driver-position">7<span class="position-suffix">th</span></div>
+                    <div class="team-logo">Renault</div>
+                    <div class="team-name">Renault</div>
+                </div>
+
+                <div class="driver right">
+                    <div class="driver-name">Nico<br>HULKENBERG</div>
+                    <div class="driver-position">8<span class="position-suffix">th</span></div>
+                    <div class="team-logo">Renault</div>
+                    <div class="team-name">Renault</div>
+                </div>
+            </div>
+
+            <div class="driver-comparison" id="comparison-5">
+                <div class="driver left">
+                    <div class="driver-name">Kevin<br>MAGNUSSEN</div>
+                    <div class="driver-position">9<span class="position-suffix">th</span></div>
+                    <div class="team-logo">Haas</div>
+                    <div class="team-name">Haas F1 Team</div>
+                </div>
+
+                <div class="driver right">
+                    <div class="driver-name">Lando<br>NORRIS</div>
+                    <div class="driver-position">10<span class="position-suffix">th</span></div>
+                    <div class="team-logo">McLaren</div>
+                    <div class="team-name">McLaren</div>
+                </div>
+            </div>
+
+            <div class="comparison-nav">
+                <div class="nav-dot" data-index="1"></div>
+                <div class="nav-dot" data-index="2"></div>
+                <div class="nav-dot" data-index="3"></div>
+                <div class="nav-dot" data-index="4"></div>
+                <div class="nav-dot" data-index="5"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables para controlar la presentación
+        let currentComparisonIndex = 0;
+        const comparisons = document.querySelectorAll('.driver-comparison');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const totalComparisons = comparisons.length;
+
+        // Función para mostrar una comparación específica
+        function showComparison(index) {
+            // Validar el índice
+            if (index < 0) index = totalComparisons - 1;
+            if (index >= totalComparisons) index = 0;
+
+            // Ocultar todas las comparaciones
+            comparisons.forEach(comp => {
+                comp.classList.remove('active');
+            });
+
+            // Desactivar todos los puntos de navegación
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+
+            // Resetear todas las posiciones de la parrilla
+            document.querySelectorAll('.grid-position').forEach(pos => {
+                pos.classList.remove('highlighted');
+            });
+
+            // Mostrar la comparación actual
+            comparisons[index].classList.add('active');
+
+            // Activar el punto de navegación correspondiente
+            navDots[index].classList.add('active');
+
+            // Resaltar las posiciones correspondientes en la parrilla
+            const startPos = index * 2 + 1;
+            const pos1 = document.getElementById(`p${startPos}`);
+            const pos2 = document.getElementById(`p${startPos + 1}`);
+
+            if (pos1) pos1.classList.add('highlighted');
+            if (pos2) pos2.classList.add('highlighted');
+
+            // Actualizar el índice actual
+            currentComparisonIndex = index;
+        }
+
+        // Inicializar la presentación
+        showComparison(0);
+
+        // Event listeners para los botones
+        document.getElementById('next-btn').addEventListener('click', function() {
+            showComparison(currentComparisonIndex + 1);
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            showComparison(currentComparisonIndex - 1);
+        });
+
+        // Event listeners para los puntos de navegación
+        navDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index')) - 1;
+                showComparison(index);
+            });
+        });
+
+        // Además, añadimos soporte para teclas de flecha
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                showComparison(currentComparisonIndex + 1);
+            } else if (event.key === 'ArrowLeft') {
+                showComparison(currentComparisonIndex - 1);
+            }
+        });
+    </script>
+</body>
+
+</html>

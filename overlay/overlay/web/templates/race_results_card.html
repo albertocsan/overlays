@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de la Carrera</title>
+    <link rel="stylesheet" href="/static/race_results_card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<div id="race-results-card">
+    <div class="race-results-header">
+        <div class="race-results-series" id="results-series"></div>
+        <div class="race-results-round" id="results-round"></div>
+    </div>
+    
+    <div class="race-results-content">
+        <div class="results-table">
+            <div class="results-table-header">
+                <span class="header-pos">POS</span>
+                <!-- Columna vacía para el logo -->
+                <span class="header-logo"></span>
+                <span class="header-driver">PILOTO</span>
+                <span class="header-car">COCHE</span>
+                <span class="header-time">TIEMPO/DIF</span>
+                <span class="header-fastest">VUELTA RÁPIDA</span>
+            </div>
+            
+            <div class="results-table-body" id="results-table-body">
+                <!-- Los 30 pilotos se insertarán aquí -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="race-results-footer">
+        <img src="/static/emslogo.png" class="race-info-logo">
+        <span class="race-info-url">www.europeanseries.com</span>
+        <img src="/static/emslogo.png" class="race-info-logo">
+    </div>
+</div>
+
+<script src="/static/results_loader.js"></script>
+
+</body>
+</html>

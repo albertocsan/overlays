@@ -1,0 +1,202 @@
+/* static/race_results_card.css */
+
+/* --- ESTILOS BASE --- */
+@font-face {
+    font-family: 'RaceSport';
+    src: url('/static/RaceSport.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    font-family: 'Rajdhani', sans-serif;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+#race-results-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 40, 60, 0.98) 0%, rgba(0, 60, 80, 0.98) 100%);
+    border: 3px solid #D7862b;
+    border-left: 8px solid #D7862b;
+    color: white;
+    width: 900px;
+    max-width: 90vw;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- HEADER Y FOOTER --- */
+.race-results-header {
+    padding: 20px 30px 15px 30px;
+    position: relative;
+}
+.race-results-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #FFA500, transparent);
+}
+.race-results-series {
+    font-family: 'RaceSport', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+.race-results-round {
+    font-family: 'RaceSport', sans-serif;
+    background-color: #FFA500;
+    color: #1a2a33;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9em;
+    display: inline-block;
+    margin-top: 5px;
+}
+.race-results-footer {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 40, 60, 0.5));
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid rgba(215, 134, 43, 0.3);
+}
+.race-info-logo {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    background: rgba(215, 134, 43, 0.2);
+    border-radius: 50%;
+    padding: 5px;
+}
+.race-info-url {
+    font-family: 'RaceSport', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+/* --- ESTILOS DE TABLA COMPACTA --- */
+.race-results-content {
+    padding: 20px 30px;
+}
+.results-table {
+    width: 100%;
+}
+
+/* Estructura de Grid */
+.results-table-header, .result-row {
+    display: grid;
+    /* POS | LOGO | PILOTO | COCHE | TIEMPO | V. RÁPIDA */
+    grid-template-columns: 45px 55px 3fr 2.5fr 1.5fr 1.5fr; 
+    gap: 15px;
+    align-items: center;
+}
+
+/* Cabecera de la tabla */
+.results-table-header {
+    font-family: 'Kanit', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(215, 134, 43, 0.5);
+    padding: 0 15px 10px 15px; /* Padding solo abajo */
+}
+.header-pos { text-align: center; }
+
+/* Cuerpo de la tabla con scroll */
+.results-table-body {
+    max-height: 800px; /* Altura máxima para la lista completa */
+    overflow-y: auto;
+    padding-right: 10px; /* Espacio para la barra de scroll */
+}
+
+/* Fila de resultado individual (MÁS COMPACTA) */
+.result-row {
+    padding: 4px 15px; /* Padding vertical reducido */
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+.result-row:last-child { border-bottom: none; }
+.result-row:hover { background-color: rgba(215, 134, 43, 0.15); }
+
+/* Posición (MÁS COMPACTA) */
+.result-pos {
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px; /* Tamaño reducido */
+    font-weight: 700;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 3px 0; /* Padding reducido */
+    line-height: 1;
+}
+
+/* Podio */
+.result-row[data-position="1"] .result-pos { background-color: #D7862b; color: #000; }
+.result-row[data-position="2"] .result-pos { background-color: #c0c0c0; color: #000; }
+.result-row[data-position="3"] .result-pos { background-color: #cd7f32; color: #000; }
+
+/* Logo del equipo (MÁS COMPACTO) */
+.result-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.result-logo img {
+    max-height: 24px; /* Altura del logo reducida */
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Info del piloto (MÁS COMPACTA) */
+.result-driver { 
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2; /* Reduce el espacio entre líneas */
+}
+.driver-name { 
+    font-size: 14px; /* Tamaño reducido */
+    font-weight: 600; 
+}
+.team-name { 
+    font-size: 11px; /* Tamaño reducido */
+    color: rgba(255, 255, 255, 0.7); 
+}
+
+/* Coche y Tiempo (MÁS COMPACTOS) */
+.result-car, .result-time, .result-fastest {
+    font-family: "Sometype Mono", monospace;
+    font-size: 13px; /* Tamaño reducido */
+    font-weight: 500;
+}
+
+/* Icono de Vuelta Rápida */
+.fastest-lap-icon {
+    color: #D7862b;
+    margin-left: 8px;
+    text-shadow: 0 0 10px #D7862b;
+}
+
+/* Barra de scroll personalizada */
+.results-table-body::-webkit-scrollbar { width: 8px; }
+.results-table-body::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 4px; }
+.results-table-body::-webkit-scrollbar-thumb { background: #D7862b; border-radius: 4px; }
+.results-table-body::-webkit-scrollbar-thumb:hover { background: #ff9d2b; }

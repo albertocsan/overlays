@@ -1,0 +1,26 @@
+# Carpeta con credencial hardcodeada (no revisada) / prototipo no destinado a compartir
+PreQ/
+
+# Builds compilados (PyInstaller) - binarios pesados, no son codigo fuente
+EMS_Overlay/
+overlay/dist/
+overlay/build_pyi/
+
+# Metadata git de respaldo (repo original del compi, no se sube)
+overlay/.git.bak-from-mcshi14/
+
+# Logs
+logs/
+**/logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Entornos locales
+.vscode/
+.claude/
+**/.claude/settings.local.json

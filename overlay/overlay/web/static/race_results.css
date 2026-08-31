@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes podiumRise {
+    0%   { opacity: 0; transform: translateY(40px) scale(0.95); }
+    70%  { opacity: 1; transform: translateY(-4px) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideFromLeft {
+    0%   { opacity: 0; transform: translateX(-50px); }
+    70%  { opacity: 1; transform: translateX(4px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+    0%   { opacity: 0; transform: translateX(50px); }
+    70%  { opacity: 1; transform: translateX(-4px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes listSlideIn {
+    0%   { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes goldGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(215, 134, 43, 0.3); }
+    50%      { box-shadow: 0 0 22px rgba(215, 134, 43, 0.6); }
+}
+
+@keyframes fastestPulse {
+    0%, 100% { text-shadow: 0 0 4px rgba(168, 85, 247, 0.4); }
+    50%      { text-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+}
+
+body {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.results-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    font-family: 'Rajdhani', sans-serif;
+    color: #fff;
+}
+
+/* --- HEADER --- */
+.results-header {
+    background: linear-gradient(to right, #004050, #005060);
+    padding: 12px 20px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+    border-bottom: 2px solid #00b4c8;
+    text-align: center;
+    animation: fadeInDown 0.5s ease both;
+}
+
+.results-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.results-track {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    color: rgba(0, 200, 255, 0.7);
+    margin-top: 2px;
+    letter-spacing: 1.5px;
+}
+
+/* ============================
+   PODIUM SECTION (P1, P2, P3)
+   ============================ */
+.results-podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 16px 14px 16px;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 30, 50, 0.92) 0%,
+        rgba(15, 40, 65, 0.88) 100%
+    );
+    border-left: 1px solid rgba(0, 180, 200, 0.3);
+    border-right: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+/* Individual podium block */
+.podium-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    padding: 14px 10px 8px 10px;
+    position: relative;
+    opacity: 0;
+}
+
+/* P1 — center, tallest */
+.podium-block.podium-1 {
+    width: 210px;
+    min-height: 180px;
+    background: linear-gradient(180deg, rgba(215, 134, 43, 0.15) 0%, rgba(6, 34, 64, 0.95) 40%);
+    border: 1px solid rgba(215, 134, 43, 0.5);
+    order: 2;
+    animation: podiumRise 0.6s ease both, goldGlow 2.5s ease-in-out infinite;
+    animation-delay: 0.6s, 1.5s;
+}
+
+/* P2 — left, medium */
+.podium-block.podium-2 {
+    width: 190px;
+    min-height: 150px;
+    background: linear-gradient(180deg, rgba(192, 192, 192, 0.1) 0%, rgba(6, 34, 64, 0.95) 40%);
+    border: 1px solid rgba(192, 192, 192, 0.35);
+    order: 1;
+    animation: slideFromLeft 0.5s ease both;
+    animation-delay: 0.9s;
+}
+
+/* P3 — right, shortest */
+.podium-block.podium-3 {
+    width: 190px;
+    min-height: 130px;
+    background: linear-gradient(180deg, rgba(205, 127, 50, 0.1) 0%, rgba(6, 34, 64, 0.95) 40%);
+    border: 1px solid rgba(205, 127, 50, 0.35);
+    order: 3;
+    animation: slideFromRight 0.5s ease both;
+    animation-delay: 0.9s;
+}
+
+/* Podium position number */
+.podium-pos {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.podium-1 .podium-pos { color: #D7862b; text-shadow: 0 0 8px rgba(215, 134, 43, 0.5); }
+.podium-2 .podium-pos { color: #c0c0c0; text-shadow: 0 0 8px rgba(192, 192, 192, 0.4); }
+.podium-3 .podium-pos { color: #cd7f32; text-shadow: 0 0 8px rgba(205, 127, 50, 0.4); }
+
+/* Podium dorsal */
+.podium-dorsal {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 3px;
+    margin-bottom: 3px;
+}
+
+.podium-1 .podium-dorsal {
+    width: 56px;
+    height: 56px;
+}
+
+/* Podium car number */
+.podium-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #D7862b;
+    line-height: 1;
+}
+
+/* Podium driver name */
+.podium-name {
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Podium gap / time */
+.podium-gap {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2px;
+}
+
+/* Podium base (the colored step) */
+.podium-base {
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+    margin-top: auto;
+}
+
+.podium-1 .podium-base { height: 8px; background: rgba(215, 134, 43, 0.5); }
+.podium-2 .podium-base { height: 5px; background: rgba(192, 192, 192, 0.35); }
+.podium-3 .podium-base { height: 4px; background: rgba(205, 127, 50, 0.35); }
+
+/* ============================
+   RESULTS LIST (P4+)
+   ============================ */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0 10px 0;
+    background: linear-gradient(
+        to right,
+        rgba(10, 30, 50, 0.9) 0%,
+        rgba(20, 50, 80, 0.85) 50%,
+        rgba(10, 30, 50, 0.9) 100%
+    );
+    border-left: 1px solid rgba(0, 180, 200, 0.3);
+    border-right: 1px solid rgba(0, 180, 200, 0.3);
+    border-bottom: 1px solid rgba(0, 180, 200, 0.3);
+    border-radius: 0 0 6px 6px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Hide scrollbar but keep functionality */
+.results-list::-webkit-scrollbar { width: 3px; }
+.results-list::-webkit-scrollbar-track { background: transparent; }
+.results-list::-webkit-scrollbar-thumb { background: rgba(0, 180, 200, 0.3); border-radius: 2px; }
+
+/* Divider between podium and list */
+.results-list-divider {
+    height: 1px;
+    margin: 0 16px 4px 16px;
+    background: linear-gradient(to right, transparent, rgba(0, 180, 200, 0.3), transparent);
+}
+
+/* Individual result row */
+.result-row {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 12px;
+    margin: 1px 8px;
+    gap: 8px;
+    border-radius: 3px;
+    background: rgba(6, 34, 64, 0.7);
+    border: 1px solid rgba(0, 180, 200, 0.08);
+    opacity: 0;
+    animation: listSlideIn 0.3s ease both;
+    animation-delay: var(--delay, 0s);
+}
+
+.result-row:hover {
+    background: rgba(6, 34, 64, 0.95);
+    border-color: rgba(0, 180, 200, 0.2);
+}
+
+/* Row position */
+.row-pos {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 14px;
+    color: #D7862b;
+    min-width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Row dorsal */
+.row-dorsal {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* Row car number */
+.row-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: #D7862b;
+    min-width: 28px;
+    flex-shrink: 0;
+}
+
+/* Row driver name */
+.row-name {
+    font-family: 'Kanit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Row gap */
+.row-gap {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 62px;
+}
+
+/* Positions gained/lost */
+.row-gained {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.row-gained.gained-up { color: #34d399; }
+.row-gained.gained-down { color: #f87171; }
+.row-gained.gained-same { color: rgba(255, 255, 255, 0.3); }
+
+/* Best lap */
+.row-bestlap {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 65px;
+}
+
+.row-bestlap.is-fastest {
+    color: #a855f7;
+    animation: fastestPulse 2s ease-in-out infinite;
+}

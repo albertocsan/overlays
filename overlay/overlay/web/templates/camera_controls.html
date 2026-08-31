@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRacing Camera Controls</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+        
+        .controls-panel {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .form-check-input:checked {
+            background-color: #1e88e5;
+            border-color: #1e88e5;
+        }
+        
+        .camera-btn {
+            background-color: rgba(50, 50, 50, 0.7);
+            color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-right: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        .camera-btn:hover {
+            background-color: rgba(70, 70, 70, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .camera-btn.active {
+            background-color: #1e88e5;
+            color: white;
+        }
+        
+        .driver-item {
+            background-color: rgba(50, 50, 50, 0.7);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        
+        .driver-item:hover {
+            background-color: rgba(60, 60, 60, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-left-color: #1e88e5;
+        }
+        
+        .driver-position {
+            font-weight: bold;
+            color: #1e88e5;
+        }
+        
+        .driver-number {
+            background-color: rgba(30, 136, 229, 0.2);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-right: 8px;
+        }
+        
+        .nav-link {
+            color: #f0f0f0;
+            text-decoration: none;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: #3a3a3a;
+            color: #ffffff;
+        }
+        
+        .status-message {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .status-success {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .status-error {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #F44336;
+        }
+        
+        .camera-group {
+            margin-bottom: 20px;
+        }
+        
+        .camera-group-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1e88e5;
+        }
+        
+        .camera-select {
+            background-color: rgba(50, 50, 50, 0.7);
+            color: #f0f0f0;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .camera-select option {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+        
+        .search-input {
+            background-color: rgba(50, 50, 50, 0.7);
+            color: #f0f0f0;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .search-input::placeholder {
+            color: #aaa;
+        }
+        
+        .battle-settings {
+            background-color: rgba(40, 40, 40, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .connection-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .connected {
+            background-color: #4CAF50;
+        }
+        
+        .disconnected {
+            background-color: #F44336;
+        }
+        
+        .focused-driver {
+            background-color: rgba(30, 136, 229, 0.3) !important;
+            /* Use !important to override hover */
+            border-left-color: #ffeb3b !important;
+            /* Yellow border for focus */
+            box-shadow: 0 0 10px rgba(30, 136, 229, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12">
+                <h1>iRacing Camera Controls</h1>
+                <a href="/" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Timing Tower
+                </a>
+                <p>
+                    <span class="connection-status disconnected" id="connection-indicator"></span>
+                    <span id="connection-status">Disconnected</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="controls-panel">
+                    <h4 class="mb-4">Camera Controls</h4>
+
+                    <!-- Camera Selection -->
+                    <div class="camera-group">
+                        <div class="camera-group-title">
+                            <i class="fas fa-video"></i> Camera Selection
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="camera-group-select">Camera Group</label>
+                                <select id="camera-group-select" class="camera-select">
+                                    <option value="loading">Loading...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="camera-select">Camera</label>
+                                <select id="camera-select" class="camera-select">
+                                    <option value="loading">Loading...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Focus Buttons -->
+                    <div class="camera-group">
+                        <div class="camera-group-title">
+                            <i class="fas fa-crosshairs"></i> Quick Focus
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <button class="camera-btn" id="focus-leader">
+                                <i class="fas fa-trophy"></i> Leader
+                            </button>
+                            <button class="camera-btn" id="focus-battles">
+                                <i class="fas fa-bolt"></i> Battles
+                            </button>
+                            <button class="camera-btn" id="focus-p2">
+                                <i class="fas fa-medal"></i> P2
+                            </button>
+                            <button class="camera-btn" id="focus-p3">
+                                <i class="fas fa-award"></i> P3
+                            </button>
+                        </div>
+
+                        <!-- Battle Settings -->
+                        <div class="battle-settings" id="battle-settings" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="gap-threshold">Gap Threshold (seconds)</label>
+                                    <input type="number" id="gap-threshold" class="camera-select" value="1.0" min="0.1" max="10" step="0.1">
+                                </div>
+                                <div class="col-md-6 d-flex align-items-end">
+                                    <button class="camera-btn" id="apply-battle-settings">
+                                        <i class="fas fa-check"></i> Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Driver List -->
+                    <div class="camera-group">
+                        <div class="camera-group-title">
+                            <i class="fas fa-users"></i> Focus on Driver
+                        </div>
+                        <input type="text" id="driver-search" class="search-input" placeholder="Search driver...">
+                        <div id="driver-list" class="mt-3">
+                            <!-- Drivers will be populated here -->
+                            <div class="text-center text-muted">
+                                <i class="fas fa-spinner fa-spin"></i> Loading drivers...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="status-message" class="status-message">
+                        <!-- Status messages will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables
+        let sessionData = null;
+        let updateInterval = null;
+        let selectedCameraGroup = 0;
+        let selectedCamera = 0;
+        let availableCameras = [];
+        let gapThreshold = 1.0;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data updates
+            updateInterval = setInterval(fetchData, 1000);
+
+            // Set up event listeners
+            document.getElementById('focus-leader').addEventListener('click', focusOnLeader);
+            document.getElementById('focus-battles').addEventListener('click', function() {
+                // Toggle battle settings
+                const battleSettings = document.getElementById('battle-settings');
+                battleSettings.style.display = battleSettings.style.display === 'none' ? 'block' : 'none';
+
+                if (battleSettings.style.display === 'block') {
+                    // Don't focus yet, wait for settings
+                } else {
+                    // Focus with current settings
+                    focusOnBattles();
+                }
+            });
+            document.getElementById('apply-battle-settings').addEventListener('click', function() {
+                // Get threshold value
+                const thresholdInput = document.getElementById('gap-threshold');
+                gapThreshold = parseFloat(thresholdInput.value);
+
+                // Focus on battles with new threshold
+                focusOnBattles();
+            });
+            document.getElementById('focus-p2').addEventListener('click', function() {
+                focusOnPosition(2);
+            });
+            document.getElementById('focus-p3').addEventListener('click', function() {
+                focusOnPosition(3);
+            });
+
+            // Set up camera selection change events
+            document.getElementById('camera-group-select').addEventListener('change', function() {
+                selectedCameraGroup = parseInt(this.value);
+                updateCameraSelect();
+            });
+
+            document.getElementById('camera-select').addEventListener('change', function() {
+                selectedCamera = parseInt(this.value);
+            });
+
+            // Set up driver search
+            document.getElementById('driver-search').addEventListener('input', function() {
+                filterDrivers(this.value);
+            });
+
+            // Fetch available cameras
+            fetchCameras();
+        });
+
+        // Fetch session and focused driver data
+        function fetchData() {
+            Promise.all([
+                    fetch('/api/timing-data').then(res => res.json()),
+                    fetch('/api/focused_driver').then(res => res.json())
+                ])
+                .then(([timingData, focusedDriverData]) => {
+                    // Handle timing data
+                    if (timingData.error) {
+                        console.log("Timing data error:", timingData.error);
+                        document.getElementById('connection-status').textContent = 'Disconnected';
+                        document.getElementById('connection-indicator').className = 'connection-status disconnected';
+                        // Still try to update driver list if possible, but mark as disconnected
+                        sessionData = null;
+                    } else {
+                        document.getElementById('connection-status').textContent = 'Connected';
+                        document.getElementById('connection-indicator').className = 'connection-status connected';
+                        sessionData = timingData; // Store timing data
+                    }
+
+                    // Handle focused driver data
+                    let focusedCarIdx = null;
+                    if (focusedDriverData.success && focusedDriverData.focusedDriver) {
+                        focusedCarIdx = focusedDriverData.focusedDriver.carIdx;
+                        console.log("Focused Car Idx:", focusedCarIdx);
+                    } else {
+                        console.log("Focused driver error or not available:", focusedDriverData.error);
+                    }
+
+                    // Update driver list using timing data and focused index
+                    if (sessionData && sessionData.drivers) {
+                        updateDriverList(sessionData.drivers, focusedCarIdx);
+                    } else {
+                        // If timing data failed, clear the list or show an error
+                        updateDriverList([], null); // Clear list if timing data fails
+                        console.log("No session data drivers to update list.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('connection-status').textContent = 'Error';
+                    document.getElementById('connection-indicator').className = 'connection-status disconnected';
+                    updateDriverList([], null); // Clear list on fetch error
+                });
+        }
+
+        // Fetch available cameras
+        function fetchCameras() {
+            fetch('/api/cameras')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        availableCameras = data.cameras;
+                        updateCameraSelects();
+                    } else {
+                        showStatusMessage('Failed to load cameras: ' + data.error, false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatusMessage('Error loading cameras: ' + error, false);
+                });
+        }
+
+        // Update camera select dropdowns
+        function updateCameraSelects() {
+            // Group cameras by group
+            const groups = {};
+
+            availableCameras.forEach(camera => {
+                if (!groups[camera.group_idx]) {
+                    groups[camera.group_idx] = {
+                        name: camera.group_name,
+                        cameras: []
+                    };
+                }
+
+                groups[camera.group_idx].cameras.push({
+                    idx: camera.camera_idx,
+                    name: camera.camera_name
+                });
+            });
+
+            // Update group select
+            const groupSelect = document.getElementById('camera-group-select');
+            groupSelect.innerHTML = '';
+
+            Object.keys(groups).forEach(groupIdx => {
+                const option = document.createElement('option');
+                option.value = groupIdx;
+                option.textContent = groups[groupIdx].name;
+                groupSelect.appendChild(option);
+            });
+
+            // If no cameras available, add default options
+            if (Object.keys(groups).length === 0) {
+                const option = document.createElement('option');
+                option.value = 0;
+                option.textContent = 'Default Group';
+                groupSelect.appendChild(option);
+            }
+
+            // Update camera select based on selected group
+            updateCameraSelect();
+        }
+
+        // Update camera select based on selected group
+        function updateCameraSelect() {
+            const cameraSelect = document.getElementById('camera-select');
+            cameraSelect.innerHTML = '';
+
+            // Find cameras for the selected group
+            const groupCameras = availableCameras.filter(camera => camera.group_idx == selectedCameraGroup);
+
+            if (groupCameras.length > 0) {
+                groupCameras.forEach(camera => {
+                    const option = document.createElement('option');
+                    option.value = camera.camera_idx;
+                    option.textContent = camera.camera_name;
+                    cameraSelect.appendChild(option);
+                });
+            } else {
+                // Add default option if no cameras found
+                const option = document.createElement('option');
+                option.value = 0;
+                option.textContent = 'Default Camera';
+                cameraSelect.appendChild(option);
+            }
+
+            // Update selected camera
+            selectedCamera = parseInt(cameraSelect.value);
+        }
+
+        // Update driver list
+        function updateDriverList(drivers, focusedCarIdx) {
+            const driverList = document.getElementById('driver-list');
+            const currentSearch = document.getElementById('driver-search').value.trim();
+
+            // Clear previous content
+            driverList.innerHTML = '';
+
+            if (!drivers || drivers.length === 0) {
+                driverList.innerHTML = '<div class="text-center text-muted">No drivers available</div>';
+                return;
+            }
+
+            // Sort drivers by position
+            const sortedDrivers = [...drivers].sort((a, b) => a.position - b.position);
+
+            // Create driver items
+            sortedDrivers.forEach(driver => {
+                const driverItem = document.createElement('div');
+                driverItem.className = 'driver-item';
+                driverItem.setAttribute('data-driver-name', driver.userName);
+                driverItem.setAttribute('data-car-number', driver.carNumber);
+                driverItem.setAttribute('data-car-idx', driver.carIdx); // Store carIdx
+
+                // Highlight if focused
+                if (driver.carIdx === focusedCarIdx) {
+                    driverItem.classList.add('focused-driver');
+                }
+
+                driverItem.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <span class="driver-position me-2">P${driver.position}</span>
+                        <span class="driver-number">#${driver.carNumber}</span>
+                        <span class="driver-name">${driver.userName}</span>
+                    </div>
+                `;
+
+                // Add click event to focus on this driver
+                driverItem.addEventListener('click', function() {
+                    const driverName = this.getAttribute('data-driver-name');
+                    focusOnDriver(driverName);
+                });
+
+                driverList.appendChild(driverItem);
+            });
+
+            // Re-apply search filter after updating list
+            filterDrivers(currentSearch);
+        }
+
+        // Filter drivers based on search input
+        function filterDrivers(searchText) {
+            const driverItems = document.querySelectorAll('.driver-item');
+            const searchLower = searchText.toLowerCase();
+
+            driverItems.forEach(item => {
+                const driverName = item.getAttribute('data-driver-name').toLowerCase();
+                const carNumber = item.getAttribute('data-car-number');
+
+                if (driverName.includes(searchLower) || carNumber.includes(searchText)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Focus on leader
+        function focusOnLeader() {
+            fetch('/api/camera/focus-leader', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        camera: selectedCamera
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showStatusMessage('Camera focused on race leader', true);
+                    } else {
+                        showStatusMessage('Failed to focus camera: ' + data.error, false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatusMessage('Error focusing camera: ' + error, false);
+                });
+        }
+
+        // Focus on battles
+        function focusOnBattles() {
+            fetch('/api/camera/focus-battles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        gap_threshold: gapThreshold,
+                        camera: selectedCamera
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showStatusMessage(`Camera focused on closest battle (gap < ${gapThreshold}s)`, true);
+                    } else {
+                        showStatusMessage('Failed to focus camera: ' + data.error, false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatusMessage('Error focusing camera: ' + error, false);
+                });
+        }
+
+        // Focus on position
+        function focusOnPosition(position) {
+            fetch('/api/camera/focus-position', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        position: position,
+                        camera: selectedCamera
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showStatusMessage(`Camera focused on P${position}`, true);
+                    } else {
+                        showStatusMessage('Failed to focus camera: ' + data.error, false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatusMessage('Error focusing camera: ' + error, false);
+                });
+        }
+
+        // Focus on driver
+        function focusOnDriver(driverName) {
+            fetch('/api/camera/focus-driver', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        driver_name: driverName,
+                        camera: selectedCamera
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showStatusMessage(`Camera focused on ${driverName}`, true);
+                    } else {
+                        showStatusMessage('Failed to focus camera: ' + data.error, false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatusMessage('Error focusing camera: ' + error, false);
+                });
+        }
+
+        // Show status message
+        function showStatusMessage(message, isSuccess) {
+            const statusElement = document.getElementById('status-message');
+            statusElement.textContent = message;
+            statusElement.className = 'status-message ' + (isSuccess ? 'status-success' : 'status-error');
+            statusElement.style.display = 'block';
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

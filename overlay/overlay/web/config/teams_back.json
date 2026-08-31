@@ -1,0 +1,604 @@
+{
+    "Asturtel Networks eSports": {
+        "drivers": [
+            {
+                "id": 398186,
+                "name": "I.Jr"
+            },
+            {
+                "id": 929728,
+                "name": "A.Ramirez"
+            }
+        ],
+        "logo": "Icono_positivo.png"
+    },
+    "Asturtel eSports": {
+        "drivers": [
+            {
+                "id": 922869,
+                "name": "Rub\u00e9n Garrido Alonso"
+            },
+            {
+                "id": 545105,
+                "name": "Agus NM"
+            }
+        ],
+        "logo": "Icono_positivo.png"
+    },
+    "Enosis Islas": {
+        "drivers": [
+            {
+                "id": 138006,
+                "name": "J.Correia"
+            },
+            {
+                "id": 801380,
+                "name": "P.Cabrera"
+            }
+        ],
+        "logo": "enosis_7.png"
+    },
+    "Enosis Norte\u00f1os": {
+        "drivers": [
+            {
+                "id": 327141,
+                "name": "R.Roza"
+            },
+            {
+                "id": 520860,
+                "name": "C.Ruiz"
+            }
+        ],
+        "logo": "enosis_nortenos.png"
+    },
+    "Enosis Viejoven": {
+        "drivers": [
+            {
+                "id": 726674,
+                "name": "Victor Chamorro"
+            },
+            {
+                "id": 589827,
+                "name": "A.Marin"
+            }
+        ],
+        "logo": "enosis_bigote.png"
+    },
+    "Enosis eSports": {
+        "drivers": [
+            {
+                "id": 377386,
+                "name": "Albert Perich"
+            },
+            {
+                "id": 258762,
+                "name": "D.Nicolas"
+            }
+        ],
+        "logo": "enosis_7.png"
+    },
+    "Enosis eSports #23": {
+        "drivers": [
+            {
+                "id": 257614,
+                "name": "R.Ortiz"
+            },
+            {
+                "id": 805993,
+                "name": "A.Jordan"
+            }
+        ],
+        "logo": "enosis_7.png"
+    },
+    "Enosis eSports Simultimate": {
+        "drivers": [
+            {
+                "id": 381160,
+                "name": "M.Gallardo"
+            },
+            {
+                "id": 150197,
+                "name": "M.Montaner"
+            }
+        ],
+        "logo": "enosisnormal_16.png"
+    },
+    "FIA TEAM RACING": {
+        "drivers": [
+            {
+                "id": 684075,
+                "name": "Christan Gonzalez"
+            },
+            {
+                "id": 690382,
+                "name": "R.Fernandez6"
+            }
+        ],
+        "logo": "fiateamabeja_33.png"
+    },
+    "FIA TEAM RACING BLUE": {
+        "drivers": [
+            {
+                "id": 749584,
+                "name": "A.Cifre8"
+            },
+            {
+                "id": 724026,
+                "name": "O.Lozano"
+            }
+        ],
+        "logo": "fiateam_28.png"
+    },
+    "Fanatic Virtual Racing Team": {
+        "drivers": [
+            {
+                "id": 1293034,
+                "name": "Roberto Bustos Ramos"
+            },
+            {
+                "id": 1124977,
+                "name": "Marc Almansa2"
+            }
+        ],
+        "logo": "fanaticvirtuakl.png"
+    },
+    "Fanatic Virtual Racing Team 1 [FVRT]": {
+        "drivers": [
+            {
+                "id": 219969,
+                "name": "G.Garcia2"
+            },
+            {
+                "id": 1257066,
+                "name": "V.Fraile"
+            }
+        ],
+        "logo": "fanaticvirtuakl.png"
+    },
+    "GG SIMTECHPRO": {
+        "drivers": [
+            {
+                "id": 496743,
+                "name": "A.Garcia"
+            },
+            {
+                "id": 415746,
+                "name": "S.Ferrer"
+            }
+        ],
+        "logo": "ggviewsonic_36.png"
+    },
+    "GG Simtechpro #0": {
+        "drivers": [
+            {
+                "id": 602043,
+                "name": "F.Toro"
+            },
+            {
+                "id": 748420,
+                "name": "G.Meler"
+            }
+        ],
+        "logo": "ggviewsonic_36.png"
+    },
+    "GG Simtechpro #2": {
+        "drivers": [
+            {
+                "id": 576066,
+                "name": "A.Soblechero"
+            },
+            {
+                "id": 581455,
+                "name": "I.Moreno"
+            }
+        ],
+        "logo": "ggviewsonic_36.png"
+    },
+    "GO! eSports": {
+        "drivers": [
+            {
+                "id": 1189681,
+                "name": "Sergi Quesada Ramos"
+            },
+            {
+                "id": 359150,
+                "name": "D.Romero"
+            }
+        ],
+        "logo": "go_27.png"
+    },
+    "GTSpain92": {
+        "drivers": [
+            {
+                "id": 1134113,
+                "name": "Antonio S\u00e1nchez3"
+            },
+            {
+                "id": 641397,
+                "name": "D.Celada"
+            }
+        ],
+        "logo": "gts92_9.png"
+    },
+    "GTSpain92 Team 2": {
+        "drivers": [
+            {
+                "id": 356174,
+                "name": "Manuel L\u00f3pez"
+            },
+            {
+                "id": 1145767,
+                "name": "J.Escribano"
+            }
+        ],
+        "logo": "gts92_9.png"
+    },
+    "Gamerkia Racing Team": {
+        "drivers": [
+            {
+                "id": 990444,
+                "name": "Sixerito Mart\u00ednez"
+            },
+            {
+                "id": 958607,
+                "name": "Alberto Sepultxa"
+            }
+        ],
+        "logo": "gamerkia_30.png"
+    },
+    "Gamerkia racing team": {
+        "drivers": [
+            {
+                "id": 1111973,
+                "name": "K.Santiago"
+            },
+            {
+                "id": 1145595,
+                "name": "I.Peinado"
+            }
+        ],
+        "logo": "gamerkia_30.png"
+    },
+    "Giti by Sparco": {
+        "drivers": [
+            {
+                "id": 664846,
+                "name": "Pere Tutusaus"
+            },
+            {
+                "id": 668063,
+                "name": "Manolo Segovia"
+            }
+        ],
+        "logo": "GITI_SPARCO_LOGO_CIRCLE.png"
+    },
+    "KFM Motorsport EAST": {
+        "drivers": [
+            {
+                "id": 333334,
+                "name": "Alejandro Ruedas"
+            },
+            {
+                "id": 637313,
+                "name": "D.Caama\u00f1o"
+            }
+        ],
+        "logo": "kfmfondo_25.png"
+    },
+    "KFM Motorsport WEST": {
+        "drivers": [
+            {
+                "id": 333796,
+                "name": "A.Zurita"
+            },
+            {
+                "id": 675871,
+                "name": "T.\u00c1lvarez"
+            }
+        ],
+        "logo": "kfmfondo_25.png"
+    },
+    "Lemon Squad Racing": {
+        "drivers": [
+            {
+                "id": 126179,
+                "name": "A.Mora"
+            },
+            {
+                "id": 312100,
+                "name": "A.Tirado"
+            }
+        ],
+        "logo": "lemon_squad_4.png"
+    },
+    "Lynx Racing Spain Team": {
+        "drivers": [
+            {
+                "id": 1070192,
+                "name": "Nacho Jarrin"
+            },
+            {
+                "id": 1158234,
+                "name": "A.Alaminos2"
+            }
+        ],
+        "logo": "lynx_spain.png"
+    },
+    "Lynx Racing Spain Team Black": {
+        "drivers": [
+            {
+                "id": 713635,
+                "name": "J.Serrano4"
+            },
+            {
+                "id": 1077756,
+                "name": "C.Molina"
+            }
+        ],
+        "logo": "lynx_spain.png"
+    },
+    "Lynx Racing Spain Team white": {
+        "drivers": [
+            {
+                "id": 1127216,
+                "name": "A.Balboa"
+            },
+            {
+                "id": 626791,
+                "name": "R.Ljubobratovic"
+            }
+        ],
+        "logo": "lynx_spain_white.png"
+    },
+    "MMS-GMK Motorsport": {
+        "drivers": [
+            {
+                "id": 647469,
+                "name": "J.Lorente"
+            },
+            {
+                "id": 942881,
+                "name": "J.Gargallo"
+            }
+        ],
+        "logo": "mmsmmk_41.png"
+    },
+    "NIX eSports": {
+        "drivers": [
+            {
+                "id": 395568,
+                "name": "F.Sanchez"
+            },
+            {
+                "id": 1094841,
+                "name": "P.Serrano3"
+            }
+        ],
+        "logo": "nix_44.png"
+    },
+    "Penor Competicion Black": {
+        "drivers": [
+            {
+                "id": 640502,
+                "name": "A.Sancha"
+            },
+            {
+                "id": 371323,
+                "name": "M.Lorente"
+            },
+            {
+                "id": 426038,
+                "name": "R.Martin"
+            }
+        ],
+        "logo": "penor.png"
+    },
+    "Piki SCT": {
+        "drivers": [
+            {
+                "id": 384294,
+                "name": "Sergio Gomez Redondo"
+            },
+            {
+                "id": 665522,
+                "name": "V.Fern\u00e1ndez"
+            }
+        ],
+        "logo": "pikisct_14.png"
+    },
+    "Piki SCT 2": {
+        "drivers": [
+            {
+                "id": 1274074,
+                "name": "B.Rodriguez3"
+            },
+            {
+                "id": 537097,
+                "name": "I.Olarra"
+            }
+        ],
+        "logo": "pikisct_14.png"
+    },
+    "RinconRacing TMCustomLogos": {
+        "drivers": [
+            {
+                "id": 553508,
+                "name": "David Viicente"
+            },
+            {
+                "id": 243584,
+                "name": "D.Goldaracena"
+            }
+        ],
+        "logo": "rinconfondoblanco_15.png"
+    },
+    "SPAIN ONE #1": {
+        "drivers": [
+            {
+                "id": 806720,
+                "name": "I.Garcia"
+            },
+            {
+                "id": 730406,
+                "name": "E.Pa\u00f1ella"
+            }
+        ],
+        "logo": "spainoneracing_18.png"
+    },
+    "SPAIN ONE #2": {
+        "drivers": [
+            {
+                "id": 1100759,
+                "name": "Diego Lorenzo Laso"
+            },
+            {
+                "id": 998456,
+                "name": "F.Gracia"
+            }
+        ],
+        "logo": "spainoneracing_18.png"
+    },
+    "SimRacing Almeria": {
+        "drivers": [
+            {
+                "id": 1121336,
+                "name": "A.Ayala3"
+            },
+            {
+                "id": 1199525,
+                "name": "D.Rodriguez"
+            }
+        ],
+        "logo": "sra_24.png"
+    },
+    "Simufy Esports2": {
+        "drivers": [
+            {
+                "id": 128870,
+                "name": "V.Lobato"
+            },
+            {
+                "id": 545183,
+                "name": "L.Moreiro"
+            }
+        ],
+        "logo": "simufy_42.png"
+    },
+    "Simufy eSports": {
+        "drivers": [
+            {
+                "id": 542120,
+                "name": "A.Ruis\u00e1nchez"
+            },
+            {
+                "id": 1152362,
+                "name": "A.Ferrer2"
+            }
+        ],
+        "logo": "simufy_42.png"
+    },
+    "Sukoi Racing": {
+        "drivers": [
+            {
+                "id": 302304,
+                "name": "S.Hoffman"
+            },
+            {
+                "id": 213584,
+                "name": "K.Gim\u00e9nez"
+            }
+        ],
+        "logo": "sukoi_racing.png"
+    },
+    "VFT e-Sports EmixGaming": {
+        "drivers": [
+            {
+                "id": 948821,
+                "name": "Ramon Mendez"
+            },
+            {
+                "id": 993451,
+                "name": "I.Mart\u00ecnez"
+            }
+        ],
+        "logo": "vftesports_12.png"
+    },
+    "XBD RACING GT4": {
+        "drivers": [
+            {
+                "id": 283597,
+                "name": "B.Fernandez"
+            },
+            {
+                "id": 960421,
+                "name": "M.Couso"
+            }
+        ],
+        "logo": "xbd_23.png"
+    },
+    "XBD RACING GT4 EMIX": {
+        "drivers": [
+            {
+                "id": 799932,
+                "name": "F.Manzanedo"
+            },
+            {
+                "id": 287535,
+                "name": "Rafa Venteo"
+            }
+        ],
+        "logo": "xbd_23.png"
+    },
+    "Zennith Esports 120": {
+        "drivers": [
+            {
+                "id": 313695,
+                "name": "S.Ignacio2"
+            },
+            {
+                "id": 386300,
+                "name": "N.Gaspar"
+            }
+        ],
+        "logo": "zennith_28.png"
+    },
+    "Zennith Gasknok": {
+        "drivers": [
+            {
+                "id": 84097,
+                "name": "E.Rueda"
+            },
+            {
+                "id": 577111,
+                "name": "U.Cabo2"
+            }
+        ],
+        "logo": "zennith_28.png"
+    },
+    "Zennith Kryptonite": {
+        "drivers": [
+            {
+                "id": 144356,
+                "name": "M.Romero"
+            },
+            {
+                "id": 211455,
+                "name": "A.Flor"
+            }
+        ],
+        "logo": "zennith_28.png"
+    },
+    "Zennith eSports": {
+        "drivers": [
+            {
+                "id": 209451,
+                "name": "J.Torres"
+            },
+            {
+                "id": 941866,
+                "name": "X.Sierra"
+            }
+        ],
+        "logo": "zennith_28.png"
+    }
+}

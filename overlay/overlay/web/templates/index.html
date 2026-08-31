@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRacing Timing Tower</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Importar fuentes */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+        /* Estilos generales */
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            padding: 10px;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0, 200, 255, 0.7);
+            text-transform: uppercase;
+        }
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 3px rgba(0, 200, 255, 0.7);
+        }
+        /* Timing Tower */
+        
+        .timing-tower {
+            background: linear-gradient(to right, #062240, #0a3b6b);
+            border: 2px solid #0e4c8a;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timing-tower::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 5px 5px;
+            pointer-events: none;
+        }
+        
+        .timing-header {
+            background: linear-gradient(to right, #0a3b6b, #0d4a85);
+            padding: 8px 15px;
+            font-weight: 700;
+            border-bottom: 1px solid #1a5c9a;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+        }
+        
+        .timing-row {
+            padding: 4px 10px;
+            border-bottom: 1px solid rgba(10, 80, 150, 0.5);
+            transition: background-color 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+        
+        .timing-row:hover {
+            background-color: rgba(20, 100, 180, 0.3);
+        }
+        /* Estilos para posiciones */
+        
+        .position-1 {
+            border-left: 3px solid #ffcc00;
+            background-color: rgba(255, 204, 0, 0.1);
+        }
+        
+        .position-2 {
+            border-left: 3px solid #c0c0c0;
+            background-color: rgba(192, 192, 192, 0.1);
+        }
+        
+        .position-3 {
+            border-left: 3px solid #cd7f32;
+            background-color: rgba(205, 127, 50, 0.1);
+        }
+        /* Estilos para elementos de información */
+        
+        .session-info {
+            background: linear-gradient(to right, #062240, #0a3b6b);
+            border: 2px solid #0e4c8a;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .session-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 5px 5px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .session-timer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+        }
+        
+        #session-laps {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #00ccff;
+        }
+        
+        .session-type-indicator {
+            position: relative;
+            z-index: 1;
+        }
+        /* Estilos para columnas */
+        
+        .column-selector {
+            background: linear-gradient(to right, #062240, #0a3b6b);
+            border: 2px solid #0e4c8a;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .column-selector::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 5px 5px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .form-check {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-check-input:checked {
+            background-color: #00ccff;
+            border-color: #00ccff;
+        }
+        
+        .form-check-label {
+            color: #fff;
+        }
+        /* Estilos para el botón de aplicar */
+        
+        .btn-primary {
+            background: linear-gradient(to right, #0a3b6b, #0d4a85);
+            border-color: #1a5c9a;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(0, 100, 200, 0.5);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #0d4a85, #0e4c8a);
+            border-color: #1a5c9a;
+        }
+        /* Estilos para el área de depuración */
+        
+        .debug-info {
+            background: linear-gradient(to right, #062240, #0a3b6b);
+            border: 2px solid #0e4c8a;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 100, 200, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .debug-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 5px 5px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        #debug-json {
+            position: relative;
+            z-index: 1;
+            color: #7e9cb9;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+        }
+        /* Estilos para el indicador de conexión */
+        
+        .connection-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        .connected {
+            background-color: #00ff00;
+            box-shadow: 0 0 5px #00ff00;
+        }
+        
+        .disconnected {
+            background-color: #ff3300;
+            box-shadow: 0 0 5px #ff3300;
+        }
+        /* Badge personalizado */
+        
+        .badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .bg-secondary {
+            background-color: #1a5c9a !important;
+        }
+        
+        .bg-info {
+            background-color: #0d4a85 !important;
+        }
+        
+        .bg-warning {
+            background-color: #ffcc00 !important;
+        }
+        
+        .bg-danger {
+            background-color: #ff3300 !important;
+        }
+        /* Estilos para los textos */
+        
+        #session-name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        #track-name {
+            color: #00ccff;
+            font-weight: 600;
+        }
+        
+        #connection-status {
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+        /* Estilos para la tabla de datos */
+        
+        .row>[class*="col-"] {
+            padding: 0 5px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .timing-row .col-1:first-child {
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .timing-row .col-1:nth-child(2) {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #ffcc00;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+        }
+        /* Estilos para animaciones */
+        
+        .timing-row.changed {
+            animation: highlight 1.5s ease-out;
+        }
+        
+        @keyframes highlight {
+            0% {
+                background-color: rgba(255, 204, 0, 0.5);
+            }
+            100% {
+                background-color: transparent;
+            }
+        }
+        /* Estilos para información de tiempo y vueltas */
+        
+        .col-2 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+        }
+        
+        .timing-row .col-2:nth-child(6),
+        .timing-row .col-2:nth-child(7) {
+            color: #00ccff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>iRacing Timing Tower</h1>
+                <div class="session-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 id="session-name">Esperando datos...</h4>
+                            <p id="track-name"></p>
+                            <p>
+                                <span class="connection-status disconnected" id="connection-indicator"></span>
+                                <span id="connection-status">Desconectado</span>
+                            </p>
+                            <div id="session-type-indicator" class="mt-2">
+                                <span class="badge bg-secondary" id="session-type-badge">Desconocido</span>
+                                <span id="session-type-text">Esperando datos...</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="session-timer" id="session-time">--:--</div>
+                            <p id="session-laps"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing-tower">
+                    <div class="timing-header">
+                        <div class="row" id="timing-header-row">
+                            <!-- Los encabezados de las columnas se generarán con JavaScript -->
+                        </div>
+                    </div>
+                    <div id="timing-rows">
+                        <!-- Las filas de datos se generarán con JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="column-selector">
+                    <h4>Configurar Columnas</h4>
+                    <p>Selecciona las columnas que quieres mostrar:</p>
+                    <div id="column-checkboxes">
+                        <!-- Las casillas de verificación se generarán con JavaScript -->
+                    </div>
+                    <button class="btn btn-primary mt-3" id="apply-columns">Aplicar Cambios</button>
+                </div>
+
+                <div class="debug-info">
+                    <h4>Información de Depuración</h4>
+                    <pre id="debug-json">Esperando datos...</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Definiciones de columnas y traducciones
+        const columnDefinitions = {
+            position: {
+                name: "Pos",
+                width: 1
+            },
+            carNumber: {
+                name: "Nº",
+                width: 1
+            },
+            userName: {
+                name: "Piloto",
+                width: 3
+            },
+            teamName: {
+                name: "Equipo",
+                width: 3
+            },
+            carName: {
+                name: "Coche",
+                width: 2
+            },
+            bestLapTime: {
+                name: "Mejor Vuelta",
+                width: 2
+            },
+            lastLapTime: {
+                name: "Última Vuelta",
+                width: 2
+            },
+            lapsComplete: {
+                name: "Vueltas",
+                width: 1
+            },
+            interval: {
+                name: "Intervalo",
+                width: 2
+            },
+            gap: {
+                name: "Gap",
+                width: 2
+            },
+            pitstops: {
+                name: "Pitstops",
+                width: 1
+            },
+            iRating: {
+                name: "iRating",
+                width: 1
+            }
+        };
+
+        // Variables de estado
+        let activeColumns = [];
+        let lastUpdate = 0;
+        let sessionData = null;
+        let updateInterval;
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generar casillas de verificación para las columnas
+            generateColumnCheckboxes();
+
+            // Iniciar la actualización de datos
+            updateInterval = setInterval(fetchTimingData, 300);
+
+            // Configurar el botón de aplicar cambios
+            document.getElementById('apply-columns').addEventListener('click', applyColumnChanges);
+        });
+
+        // Generar casillas de verificación para las columnas
+        function generateColumnCheckboxes() {
+            const container = document.getElementById('column-checkboxes');
+            const availableColumns = JSON.parse('{{ columns|tojson|safe }}');
+            activeColumns = JSON.parse('{{ active_columns|tojson|safe }}');
+
+            availableColumns.forEach(column => {
+                const div = document.createElement('div');
+                div.className = 'form-check';
+
+                const input = document.createElement('input');
+                input.className = 'form-check-input';
+                input.type = 'checkbox';
+                input.id = `column-${column}`;
+                input.value = column;
+                input.checked = activeColumns.includes(column);
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = `column-${column}`;
+                label.textContent = columnDefinitions[column] ? columnDefinitions[column].name : column;
+
+                div.appendChild(input);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+
+        // Aplicar cambios de columnas
+        function applyColumnChanges() {
+            const checkboxes = document.querySelectorAll('#column-checkboxes input[type="checkbox"]:checked');
+            const newColumns = Array.from(checkboxes).map(cb => cb.value);
+
+            if (newColumns.length === 0) {
+                alert("Debes seleccionar al menos una columna.");
+                return;
+            }
+
+            // Enviar selección al servidor
+            fetch('/api/update-columns', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        columns: newColumns
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        activeColumns = data.activeColumns;
+                        if (sessionData) {
+                            updateTimingTable(sessionData);
+                        }
+                    }
+                });
+        }
+
+        // Obtener datos de timing del servidor
+        function fetchTimingData() {
+            fetch('/api/timing-data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.log(data.error);
+                        document.getElementById('connection-status').textContent = 'Desconectado';
+                        document.getElementById('connection-indicator').className = 'connection-status disconnected';
+                        return;
+                    }
+
+                    sessionData = data;
+
+                    // Actualizar solo si hay nuevos datos (timestamp diferente)
+                    if (data.timestamp !== lastUpdate) {
+                        lastUpdate = data.timestamp;
+                        updateTimingTable(data);
+                        updateSessionInfo(data);
+                        document.getElementById('connection-status').textContent = 'Conectado';
+                        document.getElementById('connection-indicator').className = 'connection-status connected';
+                    }
+
+                    // Actualizar información de depuración
+                    document.getElementById('debug-json').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Actualizar la tabla de timing
+        function updateTimingTable(data) {
+            // Generar encabezados
+            const headerRow = document.getElementById('timing-header-row');
+            headerRow.innerHTML = '';
+
+            activeColumns.forEach(column => {
+                const colDef = columnDefinitions[column] || {
+                    name: column,
+                    width: 2
+                };
+                const div = document.createElement('div');
+                div.className = `col-${colDef.width}`;
+                div.textContent = colDef.name;
+                headerRow.appendChild(div);
+            });
+
+            // Generar filas
+            const rowsContainer = document.getElementById('timing-rows');
+            rowsContainer.innerHTML = '';
+
+            data.drivers.forEach(driver => {
+                const row = document.createElement('div');
+                row.className = `timing-row position-${driver.position}`;
+
+                const rowContent = document.createElement('div');
+                rowContent.className = 'row';
+
+                activeColumns.forEach(column => {
+                    const colDef = columnDefinitions[column] || {
+                        name: column,
+                        width: 2
+                    };
+                    const div = document.createElement('div');
+                    div.className = `col-${colDef.width}`;
+                    div.textContent = driver[column] !== undefined ? driver[column] : '-';
+                    rowContent.appendChild(div);
+                });
+
+                row.appendChild(rowContent);
+                rowsContainer.appendChild(row);
+            });
+        }
+
+        // Actualizar información de la sesión
+        function updateSessionInfo(data) {
+            document.getElementById('session-name').textContent = data.sessionName || 'Sesión Desconocida';
+            document.getElementById('track-name').textContent = `${data.trackName}${data.trackConfig ? ' - ' + data.trackConfig : ''}`;
+
+            // Formatear tiempo restante de sesión
+            const timeRemaining = data.sessionTimeRemaining;
+            if (timeRemaining !== undefined) {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = Math.floor(timeRemaining % 60);
+                document.getElementById('session-time').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('session-time').textContent = '--:--';
+            }
+
+            // Mostrar información de vueltas si está disponible
+            const lapsInfo = [];
+            if (data.sessionLapsTotal > 0) {
+                lapsInfo.push(`Vueltas totales: ${data.sessionLapsTotal}`);
+            }
+            if (data.sessionLapsRemaining > 0) {
+                lapsInfo.push(`Vueltas restantes: ${data.sessionLapsRemaining}`);
+            }
+            document.getElementById('session-laps').textContent = lapsInfo.join(' - ');
+
+            // Actualizar indicador de tipo de sesión
+            updateSessionTypeIndicator(data.sessionType);
+        }
+
+        // Actualizar el indicador de tipo de sesión
+        function updateSessionTypeIndicator(sessionType) {
+            const badge = document.getElementById('session-type-badge');
+            const text = document.getElementById('session-type-text');
+
+            if (!sessionType) {
+                badge.className = 'badge bg-secondary';
+                badge.textContent = 'Desconocido';
+                text.textContent = 'Tipo de sesión desconocido';
+                return;
+            }
+
+            let badgeClass = 'badge ';
+            let sessionTypeText = '';
+
+            // Determinar el tipo de sesión y establecer el estilo y texto adecuados
+            const sessionTypeUpper = sessionType.toUpperCase();
+
+            if (sessionTypeUpper.includes('PRACTICE')) {
+                badgeClass += 'bg-info';
+                badge.textContent = 'PRÁCTICA';
+                sessionTypeText = 'Sesión de práctica - Ordenado por mejor tiempo';
+            } else if (sessionTypeUpper.includes('QUALIFY')) {
+                badgeClass += 'bg-warning text-dark';
+                badge.textContent = 'CLASIFICACIÓN';
+                sessionTypeText = 'Sesión de clasificación - Ordenado por mejor tiempo';
+            } else if (sessionTypeUpper.includes('RACE')) {
+                // Verificar si es gridding o carrera
+                if (sessionTypeUpper.includes('GRID')) {
+                    badgeClass += 'bg-secondary';
+                    badge.textContent = 'PARRILLA';
+                    sessionTypeText = 'Formación de parrilla';
+                } else {
+                    badgeClass += 'bg-danger';
+                    badge.textContent = 'CARRERA';
+
+                    // Verificar si la carrera ha terminado (en estado cool-down o estado 6)
+                    const sessionState = sessionData.sessionState;
+                    if (sessionState === 5 || sessionState === 6) { // 5=cool-down, 6=también finalizada
+                        sessionTypeText = 'Carrera finalizada - Mostrando resultados';
+                    } else {
+                        sessionTypeText = 'Carrera en curso - Ordenado por posición en pista';
+                    }
+                }
+            } else {
+                badgeClass += 'bg-secondary';
+                badge.textContent = 'OTRO';
+                sessionTypeText = `Tipo de sesión: ${sessionType}`;
+            }
+
+            badge.className = badgeClass;
+            text.textContent = sessionTypeText;
+        }
+    </script>
+</body>
+
+</html>

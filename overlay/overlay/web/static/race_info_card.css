@@ -1,0 +1,319 @@
+/* Race Info Card - Broadcast Style */
+        html, body {
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        #race-info-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 40, 60, 0.98) 0%, rgba(0, 60, 80, 0.98) 100%);
+            border: 3px solid #D7862b;
+            border-left: 8px solid #D7862b;
+            border-radius: 0;
+            padding: 0;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            width: 900px;
+            max-width: 90vw;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Section */
+/* Elimina el borde antiguo del header */
+        .race-info-header {
+            border-bottom: none;
+            position: relative;
+            /* Usamos el shorthand de padding: Arriba, Derecha, Abajo, Izquierda */
+            padding: 20px 30px 15px 30px;
+        }
+
+        /* Creamos la nueva línea con un pseudo-elemento */
+        .race-info-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px; /* Grosor de la línea */
+            background: linear-gradient(to right, #FFA500, transparent); /* Gradiente */
+        }
+
+        .race-info-series {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Kanit', sans-serif;
+            margin-bottom: 5px;
+        }
+
+        .race-info-round {
+            background-color: #FFA500; /* O el color naranja que prefieras */
+            color: #1a2a33; /* Un color oscuro para el texto */
+            padding: 4px 12px; /* Ajusta el espacio interior */
+            border-radius: 15px; /* Esto crea la forma de píldora */
+            font-weight: bold;
+            font-size: 0.9em;
+            display: inline-block; /* Para que el fondo se ajuste al texto */
+            margin-top: 5px; /* Espacio para separarlo del título principal */
+        }
+
+        /* Main Content */
+        .race-info-content {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        /* Left Side - Circuit */
+        .race-info-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .race-info-circuit-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-family: "Kanit", sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .race-info-circuit-image-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(215, 134, 43, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .race-info-circuit-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(215, 134, 43, 0.3));
+        }
+
+        .race-info-circuit-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .race-info-detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .race-info-detail-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .race-info-detail-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: "Sometype Mono", monospace;
+        }
+
+        /* Right Side - Weather & Info */
+        .race-info-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .race-info-weather-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-family: "Kanit", sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .race-info-weather-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 180, 200, 0.2);
+        }
+
+        .race-info-weather-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .race-info-weather-icon {
+            font-size: 48px;
+            color: #00b4c8;
+        }
+
+        .race-info-weather-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: "Sometype Mono", monospace;
+        }
+
+        .race-info-weather-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Season Info Section */
+        .race-info-season {
+            background: rgba(215, 134, 43, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(215, 134, 43, 0.3);
+        }
+
+        .race-info-season-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #D7862b;
+            text-transform: uppercase;
+            font-family: "Kanit", sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .race-info-season-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .race-info-season-item {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .race-info-season-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        .race-info-footer {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 40, 60, 0.5));
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid rgba(215, 134, 43, 0.3);
+        }
+
+        .race-info-logo {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            background: rgba(215, 134, 43, 0.2);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .race-info-url {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            #race-info-card {
+                width: 95vw;
+            }
+            
+            .race-info-content {
+                flex-direction: column;
+            }
+            
+            .race-info-weather-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .race-info-series {
+                font-size: 24px;
+            }
+            
+            .race-info-content {
+                padding: 20px;
+            }
+            
+            .race-info-weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .race-info-circuit-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+@font-face {
+    font-family: 'RaceSport';
+    src: url('/static/RaceSport.ttf') format('truetype');
+    /* Puedes añadir más formatos si tienes, por ejemplo:
+    src: url('/static/RaceSport.woff2') format('woff2'),
+         url('/static/RaceSport.woff') format('woff'),
+         url('/static/RaceSport.ttf') format('truetype');
+    */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* El resto de tu CSS existente va aquí */
+
+/* Aplica la fuente a los títulos que desees */
+.race-info-header .race-info-series,
+.race-info-header .race-info-round,
+.race-info-weather-title,.race-info-url,
+.race-info-season-title {
+    font-family: 'RaceSport', sans-serif; /* Fallback a sans-serif si RaceSport no carga */
+    /* Puedes ajustar el tamaño de fuente, color, etc., si es necesario */
+    /* font-size: 1.5em; */
+    /* color: #your-color; */
+}
+
+/* Si también quieres que el nombre del circuito use esta fuente: */
+.race-info-circuit-name {
+    font-family: 'RaceSport', sans-serif;
+}
+.race-info-weather-item {
+    text-align: center;
+}

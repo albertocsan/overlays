@@ -1,0 +1,1338 @@
+@import url('https://fonts.cdnfonts.com/css/race-sport-free');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+body {
+    background-color: transparent;
+    background: transparent;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.timing-tower {
+    min-width: 350px;
+    max-width: 800px;
+    width: auto;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    margin: 0;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+    border-top: none;
+    transition: width 0.5s ease-in-out;
+}
+
+.timing-header {
+    background: linear-gradient(to right, #004050, #005060);
+    padding: 8px 10px;
+    font-weight: bold;
+    border-bottom: 2px solid #00b4c8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timing-header .session-name {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.timing-header .session-time {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    background-size: 5px 5px;
+}
+
+.timing-row {
+    padding: 3px 10px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    font-weight: 600;
+    font-size: 20px;
+    width: fit-content;
+    min-width: 100%;
+}
+
+.timing-row:before {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    transition: background-color 0.3s;
+    z-index: 1;
+}
+
+.timing-column {
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.timing-column.position {
+    color: orange;
+    font-weight: bold;
+    font-size: 18px;
+    justify-content: center;
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.timing-column.lastPitLap {
+    color: #FFD700;
+    font-weight: 600;
+    font-size: 13px;
+    justify-content: center;
+    font-family: "Sometype Mono", monospace;
+}
+
+.timing-column.carNumber {
+    font-weight: bold;
+    font-size: 14px;
+    justify-content: center;
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
+    color: #D7862b;
+    text-shadow: 0 0 5px rgba(215, 134, 43, 0.5);
+}
+
+.timing-column.userName {
+    font-family: "Kanit", sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.timing-column.userName .finished-flag {
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
+    font-size: 1em; /* Adjust as needed */
+}
+
+.timing-column.bestLapTime,
+.timing-column.lastLapTime,
+.timing-column.interval,
+.timing-column.gap,
+.timing-column.lastPitTime,
+.timing-column.lastPitBoxTime {
+    justify-content: flex-end;
+    font-family: "Sometype Mono", monospace;
+    letter-spacing: 0.5px;
+    transition: all 0.5s ease;
+    font-size: 14px;
+}
+
+.timing-column.positionsGained {
+    justify-content: center;
+    font-family: "Sometype Mono", monospace;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.timing-column.positionsGained.gained-up { color: #34d399; }
+.timing-column.positionsGained.gained-down { color: #f87171; }
+.timing-column.positionsGained.gained-same { color: rgba(255, 255, 255, 0.3); }
+
+/* Out lap indicator */
+.timing-column.out-lap-text {
+    color: #fbbf24;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+/* Animación para última vuelta actualizada */
+
+.timing-column.lastLapTime.last-lap-updated {
+    animation: lastLapPulse 5s ease-in-out;
+    color: #00b4c8;
+    font-weight: bold;
+}
+
+@keyframes lastLapPulse {
+    0% {
+        transform: translateX(0);
+        background-color: rgba(0, 180, 200, 0);
+    }
+    10% {
+        transform: translateX(10px);
+        background-color: rgba(0, 180, 200, 0.2);
+    }
+    20% {
+        transform: translateX(0);
+        background-color: rgba(0, 180, 200, 0.2);
+    }
+    80% {
+        background-color: rgba(0, 180, 200, 0.2);
+    }
+    100% {
+        background-color: rgba(0, 180, 200, 0);
+    }
+}
+
+/* Animaciones para columnas añadidas/eliminadas */
+
+.column-enter {
+    animation: columnEnter 0.5s ease-in-out;
+}
+
+.column-exit {
+    animation: columnExit 0.5s ease-in-out;
+}
+
+@keyframes columnEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes columnExit {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+/* Animación para el movimiento de filas */
+
+.timing-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.driver-block {
+    transition: transform 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95), background-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Borde lateral con efecto para cambios de posición */
+
+.moving-up,
+.moving-down {
+    position: relative;
+    z-index: 2;
+    border-left: 4px solid currentColor;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    perspective: 1000px;
+}
+
+.moving-up {
+    color: #4CAF50;
+    animation: smoothMoveUp 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+}
+
+.moving-down {
+    color: #F44336;
+    animation: smoothMoveDown 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+}
+
+/* Animación mejorada para adelantamientos (overtakes) */
+.overtake {
+    position: relative;
+    z-index: 3;
+    border-left: 4px solid #09ff00;
+    overflow: visible;
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    perspective: 1000px;
+    box-shadow: 0 0 15px rgba(9, 255, 0, 0.7);
+    animation: overtakePulse 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes overtakePulse {
+    0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 0 15px rgba(9, 255, 0, 0.7);
+    }
+    20% {
+        transform: translateY(-15px) scale(1.1);
+        box-shadow: 0 0 25px rgba(9, 255, 0, 0.9);
+    }
+    40% {
+        transform: translateY(5px) scale(1.05) rotate3d(1, 0, 0, 8deg);
+        box-shadow: 0 0 30px rgba(9, 255, 0, 0.8);
+    }
+    60% {
+        transform: translateY(-3px) scale(1.02) rotate3d(1, 0, 0, -4deg);
+        box-shadow: 0 0 20px rgba(9, 255, 0, 0.7);
+    }
+    80% {
+        transform: translateY(0) scale(1.01);
+        box-shadow: 0 0 15px rgba(9, 255, 0, 0.6);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 0 10px rgba(9, 255, 0, 0.5);
+    }
+}
+
+/* Efecto de velocidad y partículas para adelantamientos */
+.overtake::before {
+    content: '💨';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: rgba(9, 255, 0, 0.8);
+    animation: speedEffect 0.8s ease-out forwards;
+    z-index: -1;
+}
+
+.overtake::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(9, 255, 0, 0.3) 0%, transparent 70%);
+    animation: overtakeGlow 1.2s ease-out forwards;
+    opacity: 0.8;
+    z-index: -1;
+}
+
+@keyframes speedEffect {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(0);
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(-10px);
+    }
+    70% {
+        opacity: 0.8;
+        transform: translateY(-50%) translateX(-20px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-30px);
+    }
+}
+
+@keyframes overtakeGlow {
+    0% {
+        transform: rotate(0deg) scale(0.8);
+        opacity: 0.8;
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+        opacity: 0.6;
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Animación mejorada para posición mejorada (no overtake) */
+@keyframes smoothMoveUp {
+    0%,
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0deg) scale(1);
+    }
+    40% {
+        transform: translateY(12px) rotate3d(1, 0, 0, 5deg) scale(1.03);
+    }
+    70% {
+        transform: translateY(6px) rotate3d(1, 0, 0, -3deg) scale(1.01);
+    }
+}
+
+@keyframes smoothMoveDown {
+    0%,
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0deg) scale(1);
+    }
+    40% {
+        transform: translateY(-12px) rotate3d(1, 0, 0, -5deg) scale(1.03);
+    }
+    70% {
+        transform: translateY(-6px) rotate3d(1, 0, 0, 3deg) scale(1.01);
+    }
+}
+
+/* Efecto de brillo suave */
+
+.moving-up::after,
+.moving-down::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient( circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    animation: subtleSway 3s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+@keyframes subtleSway {
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: rotate(5deg) scale(1.05);
+        opacity: 0.7;
+    }
+}
+
+/* Efecto adicional de brillo y sombra */
+
+.moving-up:hover::after,
+.moving-down:hover::after {
+    opacity: 1;
+}
+
+@keyframes shine {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Position colors */
+
+.position-1 {
+    border-left-color: rgba(0, 200, 255, 0.7);
+    background-color: rgba(0, 180, 200, 0.15);
+}
+
+.position-2 {
+    border-left-color: rgba(0, 200, 255, 0.7);
+    background-color: rgba(0, 180, 200, 0.1);
+}
+
+.position-3 {
+    border-left-color: rgba(0, 200, 255, 0.7);
+    background-color: rgba(0, 180, 200, 0.05);
+}
+
+/* Alternating row colors */
+
+.timing-row:nth-child(even) {
+    background-color: rgba(10, 59, 107, 0.85)
+}
+
+.timing-row:nth-child(odd) {
+    background-color: rgba(37, 96, 155, 0.85)
+}
+
+/* Live indicator */
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    background-color: #003040;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 1px solid rgba(0, 180, 200, 0.5);
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 1.5s infinite;
+}
+
+/* Flag state overrides */
+.live-indicator.flag-yellow {
+    border-color: rgba(255, 220, 0, 0.7);
+    color: #ffdc00;
+}
+.live-indicator.flag-yellow .live-dot { background-color: #ffdc00; }
+
+.live-indicator.flag-sc {
+    border-color: rgba(255, 140, 0, 0.8);
+    color: #ff8c00;
+}
+.live-indicator.flag-sc .live-dot { background-color: #ff8c00; }
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Session title */
+
+.session-title {
+    background-color: #003040;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 2px solid rgba(0, 200, 255, 0.7);
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 200, 255, 0.7)
+}
+
+/* Controls button */
+
+.controls-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 40, 50, 0.8);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+.controls-button:hover {
+    background-color: rgba(0, 60, 70, 0.9);
+    border-color: rgba(0, 180, 200, 0.6);
+}
+
+/* Position change styles - new implementation */
+
+.position-change {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.position-change-up {
+    color: #09ff00;
+    animation: fadeInOutChange 1s ease;
+}
+
+.position-change-down {
+    color: #ff6b6b;
+    animation: fadeInOutChange 1s ease;
+}
+
+/* Position change styles for overtakes */
+.position-change-overtake {
+    color: #09ff00;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(9, 255, 0, 0.8);
+    animation: overtakePositionChange 1.5s ease;
+    transform: scale(1.2);
+}
+
+@keyframes overtakePositionChange {
+    0% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    90% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInOutChange {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Connection status (hidden by default) */
+
+.connection-status-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 40, 50, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: none;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+.connection-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.connected {
+    background-color: #00b4c8;
+}
+
+.disconnected {
+    background-color: #ff6b6b;
+}
+
+/* Scrollbar styles */
+
+.timing-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.timing-container::-webkit-scrollbar-track {
+    background: rgba(0, 30, 40, 0.5);
+}
+
+.timing-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 180, 200, 0.3);
+    border-radius: 3px;
+}
+
+.timing-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 180, 200, 0.5);
+}
+
+/* Estilos para la cabecera de columnas */
+
+.timing-columns-header {
+    display: flex;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(0, 200, 255, 0.7);
+    background: linear-gradient(to left, #062240, #0a3b6b);
+    font-size: 11px;
+    color: rgba(0, 200, 255, 0.7);
+    text-transform: uppercase;
+    width: fit-content;
+    min-width: 100%;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Separador para pilotos rotativos */
+
+.rotating-drivers-separator {
+    height: 2px;
+    background: linear-gradient(to right, rgba(0, 200, 255, 0.7), #0a3b6b);
+    margin: 0;
+    position: relative;
+    z-index: 3;
+}
+
+.rotating-drivers-label {
+    position: absolute;
+    right: 10px;
+    top: -8px;
+    background-color: rgba(0, 40, 50, 0.9);
+    color: #00b4c8;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+.header-column {
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+}
+
+.header-column.position,
+.header-column.carNumber {
+    justify-content: center;
+    font-weight: bold;
+}
+
+.header-column.bestLapTime,
+.header-column.lastLapTime,
+.header-column.interval,
+.header-column.gap,
+.header-column.lastPitTime,
+.header-column.lastPitBoxTime {
+    justify-content: flex-end;
+}
+
+.header-column.positionsGained {
+    justify-content: center;
+}
+
+.timing-column.brands {
+    justify-content: center;
+    padding: 0 2px;
+}
+
+.timing-column.brands img {
+    max-height: 24px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.session-title-container::before {
+    background: linear-gradient(to right, #062240, #0a3b6b);
+    z-index: 1;
+}
+
+.session-title-container {
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 5px 5px;
+    z-index: 0;
+}
+
+.sponsors-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 40, 50, 0.8);
+    padding: 5px;
+    border-top: 2px solid rgba(0, 200, 255, 0.7);
+    min-width: 350px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.sponsor-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.sponsor-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 40px;
+    object-fit: contain;
+}
+
+/* Focused Driver Info Block Styles */
+
+/* Focused Driver Info Block Styles - Enhanced Version */
+/* ── Focused Driver Card ─────────────────────────────────── */
+@keyframes fdSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fdSlideOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(12px); }
+}
+
+#focused-driver-info {
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+    background: linear-gradient(135deg, rgba(0, 30, 40, 0.96) 0%, rgba(0, 50, 65, 0.96) 100%);
+    border: 2px solid #00b4c8;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 24px rgba(0, 180, 200, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+#focused-driver-info.fd-visible {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fdSlideIn 0.35s ease forwards;
+}
+
+#focused-driver-info.fd-hidden {
+    animation: fdSlideOut 0.3s ease forwards;
+}
+
+#focused-driver-info.fd-transitioning {
+    animation: fdSlideOut 0.18s ease forwards;
+}
+
+/* ── Single mode ── */
+#focused-driver-info.fd-single {
+    min-width: 340px;
+}
+
+.fd-dorsal {
+    height: 54px;
+    width: 100px;
+    object-fit: contain;
+    object-position: left center;
+    flex-shrink: 0;
+}
+
+.fd-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex-shrink: 0;
+    padding-right: 14px;
+    border-right: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+.fd-pos {
+    font-size: 13px;
+    font-weight: 700;
+    color: #D7862b;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.5px;
+}
+
+.fd-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.fd-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 14px;
+    min-width: 90px;
+}
+
+.fd-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+@keyframes fdStatFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fd-stat-fade {
+    animation: fdStatFadeIn 0.3s ease forwards;
+}
+
+.fd-stat-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #00b4c8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+.fd-stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+}
+
+/* ── Duel mode ── */
+#focused-driver-info.fd-duel {
+    min-width: 420px;
+    gap: 0;
+}
+
+.fd-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 12px;
+}
+
+.fd-card-focused {
+    background: rgba(0, 180, 200, 0.1);
+    border-radius: 6px;
+}
+
+.fd-card-opponent {
+    opacity: 0.8;
+}
+
+.fd-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.fd-duel-gap {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f0c040;
+    font-family: 'Space Mono', monospace;
+    padding: 0 10px;
+    border-left: 1px solid rgba(0, 180, 200, 0.3);
+    border-right: 1px solid rgba(0, 180, 200, 0.3);
+    white-space: nowrap;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* ── Train mode (3-car) ── */
+#focused-driver-info.fd-train {
+    gap: 0;
+    align-items: center;
+}
+
+.fd-train-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.fd-train-more {
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    color: rgba(255, 200, 0, 0.75);
+    letter-spacing: 0.3px;
+}
+
+/* ── Gap trend arrows ── */
+.fd-gap-trend {
+    font-size: 11px;
+    margin-left: 4px;
+}
+.fd-gap-trend.closing { color: #00e060; }
+.fd-gap-trend.opening { color: #ff5050; }
+
+/* ── Timing tower row highlight ── */
+.timing-row.fd-row-focused {
+    outline: 1px solid rgba(0, 180, 200, 0.6);
+}
+
+/* ── Qualifying mode card ── */
+#focused-driver-info.fd-qualy {
+    align-items: center;
+    gap: 14px;
+}
+
+.fd-best-lap {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Space Mono', monospace;
+    margin-top: 2px;
+}
+
+.fd-qualy-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-left: 14px;
+    border-left: 1px solid rgba(0, 180, 200, 0.3);
+}
+
+.fd-qualy-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 180, 200, 0.3);
+    margin: 5px 0;
+}
+
+.fd-lap-timer {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+/* ── Sector pills ── */
+.fd-sector-pills {
+    display: flex;
+    gap: 5px;
+}
+
+.fd-sector-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 52px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fd-sector-pill.s-green {
+    background: rgba(0, 200, 80, 0.18);
+    border-color: rgba(0, 200, 80, 0.5);
+}
+
+.fd-sector-pill.s-purple {
+    background: rgba(160, 40, 220, 0.22);
+    border-color: rgba(160, 40, 220, 0.6);
+}
+
+.fd-sector-pill.s-gray {
+    background: rgba(120, 120, 120, 0.15);
+    border-color: rgba(120, 120, 120, 0.3);
+}
+
+.fd-sp-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fd-sp-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+}
+
+.fd-sector-pill.s-green .fd-sp-time { color: #00e060; }
+.fd-sector-pill.s-purple .fd-sp-time { color: #c060ff; }
+
+.fd-sp-delta {
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+    margin-top: 1px;
+}
+.fd-sp-delta.delta-slow   { color: #ff6060; }
+.fd-sp-delta.delta-fast   { color: #00e060; }
+.fd-sp-delta.delta-purple { color: #c060ff; }
+
+/* ── Lap end flash overlay ── */
+@keyframes fdFlashIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.fd-lap-flash {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    backdrop-filter: blur(4px);
+    animation: fdFlashIn 0.25s ease forwards;
+    transition: opacity 0.6s ease;
+    z-index: 10;
+}
+
+.fd-lap-flash.fd-flash-purple {
+    background: rgba(130, 20, 200, 0.85);
+    border: 2px solid #c060ff;
+}
+
+.fd-lap-flash.fd-flash-red {
+    background: rgba(180, 30, 30, 0.85);
+    border: 2px solid #ff6060;
+}
+
+.fd-lap-flash.fd-flash-fade {
+    opacity: 0;
+}
+
+.fd-flash-time {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+}
+
+.fd-flash-delta {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Flash uses absolute positioning relative to the fixed card (fixed creates stacking context) */
+
+/* Tire Compound Icons */
+.timing-column.tireCompound {
+    justify-content: center;
+    align-items: center;
+}
+
+.timing-column.tireCompound .tire-indicator {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px; /* Size of the circle */
+    height: 24px; /* Size of the circle */
+    border-radius: 50%; /* Make it a circle */
+    font-size: 1.1em; /* Slightly larger font size */
+    font-weight: bold;
+    color: #000; /* Default text color */
+    vertical-align: middle;
+}
+
+.timing-column.tireCompound .tire-dry {
+    background-color: transparent; /* White circle */
+    color: #FFFFFF; /* Black text for contrast */
+    border: 1px solid #FFFFFF; /* White border for circumference */
+}
+
+.timing-column.tireCompound .tire-wet {
+    background-color: transparent; /* Blue circle */
+    color: #00B4C8; /* White text for contrast */
+    border: 1px solid #00B4C8; /* Blue border for circumference */
+}
+
+.timing-column.tireCompound .tire-unknown {
+    background-color: transparent; /* Transparent background */
+    border: 1px solid #FFD700; /* Gold border for circumference */
+    color: #FFD700; /* Gold text for unknown */
+    /* Keep width, height, border-radius from .tire-indicator */
+}
+
+/* Pit Road Indicator Styles */
+.timing-column.onPitRoad {
+    justify-content: center;
+    align-items: center;
+}
+
+.timing-column.onPitRoad .pit-indicator {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px; /* Size of the circle */
+    height: 24px; /* Size of the circle */
+    border-radius: 50%; /* Make it a circle */
+    font-size: 1.1em; /* Slightly larger font size */
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.timing-column.onPitRoad .in-pits {
+    background-color: #FFD700; /* Gold background for in pits */
+    color: #000; /* Black text for contrast */
+    border: 1px solid #D7862b; /* Darker gold border */
+    animation: pitPulse 1s ease-in-out infinite;
+}
+
+.timing-column.onPitRoad .abandoned {
+    background-color: transparent; /* Dark red background for abandoned cars */
+    color: #FFFFFF; /* White text for contrast */
+    border: none; /* Red border */
+    animation: none;
+    font-weight: bold;
+}
+
+.timing-row.not-on-track {
+    opacity: 1; /* Keep full opacity for the row */
+}
+
+.timing-row.not-on-track .timing-column.userName {
+    opacity: 0.4; /* Reduce opacity for driver name only */
+}
+
+.timing-column.onPitRoad .pit-indicator.abandoned {
+    color: #ff6b6b; /* Red color for "OUT" text */
+}
+
+.timing-column.onPitRoad .not-in-pits {
+    background-color: transparent; /* Transparent background */
+    border: 1px solid #FFFFFF; /* White border for circumference */
+    color: transparent; /* Transparent text */
+}
+
+/* Contenedor de las cajas */
+.timing-column.sectors-container {
+    display: flex;
+    justify-content: center; /* Centrado horizontalmente */
+    align-items: center;
+    gap: 4px; /* Espacio entre cajitas */
+    padding: 0 5px;
+}
+
+/* La cajita base */
+.sector-box {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 0: Transparente / Pendiente */
+.sec-none {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 1: Gris (No mejora) */
+.sec-gray {
+    background-color: #808080; /* Gris sólido */
+    border-color: #a0a0a0;
+    box-shadow: 0 0 2px rgba(128, 128, 128, 0.5);
+}
+
+/* 2: Verde (Personal Best) */
+.sec-green {
+    background-color: #00ff00; /* Verde brillante */
+    border-color: #4dff4d;
+    box-shadow: 0 0 4px rgba(0, 255, 0, 0.6);
+}
+
+/* 3: Morado (Overall Best) */
+.sec-purple {
+    background-color: #cc00ff; /* Morado/Magenta */
+    border-color: #e066ff;
+    box-shadow: 0 0 5px rgba(204, 0, 255, 0.8);
+    /* Opcional: animación de brillo para el récord absoluto */
+    animation: purplePulse 2s infinite; 
+}
+
+@keyframes purplePulse {
+    0% { box-shadow: 0 0 2px rgba(204, 0, 255, 0.5); }
+    50% { box-shadow: 0 0 8px rgba(204, 0, 255, 0.9); }
+    100% { box-shadow: 0 0 2px rgba(204, 0, 255, 0.5); }
+}
+
+/* --- SLIDING SECTOR POP-UP (VERSIÓN TRANSICIONES) --- */
+
+.sector-popover {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    min-width: 120px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+    background: linear-gradient(to left, rgba(0, 40, 50, 0.95) 60%, transparent);
+    font-family: "Sometype Mono", monospace;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    border-right: 4px solid #00b4c8;
+    
+    z-index: 100;
+    
+    /* --- CAMBIOS IMPORTANTES AQUÍ --- */
+    transform: translateX(100%); /* Por defecto escondido a la derecha */
+    opacity: 0;
+    /* Usamos transición en lugar de animación para que no se reinicie al mover la fila */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+}
+
+/* Esta clase activa la visualización */
+.sector-popover.visible {
+    transform: translateX(0); /* Se desliza hacia dentro */
+    opacity: 1;
+}
+
+/* Colores */
+.sector-popover.pop-gray { border-right-color: #808080; color: #ccc; }
+.sector-popover.pop-green { border-right-color: #09ff00; color: #fff; text-shadow: 0 0 5px rgba(9, 255, 0, 0.5); }
+.sector-popover.pop-purple { border-right-color: #cc00ff; color: #fff; text-shadow: 0 0 5px rgba(204, 0, 255, 0.5); }
+
+/* ── Performance Score badge ─────────────────────────────────────────── */
+.perf-score {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Sometype Mono', monospace;
+    letter-spacing: 0.5px;
+    min-width: 38px;
+    text-align: center;
+}
+.perf-score.perf-high {
+    background-color: rgba(0, 200, 80, 0.25);
+    color: #00e060;
+    border: 1px solid rgba(0, 200, 80, 0.5);
+}
+.perf-score.perf-mid {
+    background-color: rgba(255, 180, 0, 0.20);
+    color: #ffc800;
+    border: 1px solid rgba(255, 180, 0, 0.4);
+}
+.perf-score.perf-low {
+    background-color: rgba(220, 50, 50, 0.20);
+    color: #ff6060;
+    border: 1px solid rgba(220, 50, 50, 0.4);
+}

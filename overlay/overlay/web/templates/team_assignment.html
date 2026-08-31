@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Assignment</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { display: flex; gap: 20px; }
+        .panel { border: 1px solid #ccc; padding: 15px; border-radius: 5px; flex: 1; }
+        .team-list, .driver-list { list-style: none; padding: 0; }
+        .team-list li, .driver-list li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .team-list li:last-child, .driver-list li:last-child { border-bottom: none; }
+        .team-input { margin-bottom: 10px; }
+        .team-input input[type="text"] { width: calc(100% - 70px); padding: 8px; margin-right: 5px; }
+        .team-input button { padding: 8px 12px; }
+        .driver-item { cursor: pointer; }
+        .driver-item.selected { background-color: #e0e0e0; }
+        .team-drivers { margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
+        .team-drivers span { display: inline-block; background-color: #f0f0f0; padding: 5px 8px; margin: 3px; border-radius: 3px; }
+        .save-button { margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .save-button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Team Assignment</h1>
+
+    <div class="container">
+        <div class="panel">
+            <h2>Available Drivers</h2>
+            <ul id="available-drivers" class="driver-list">
+                <!-- Drivers will be loaded here -->
+            </ul>
+        </div>
+
+        <div class="panel">
+            <h2>Teams</h2>
+            <div class="team-input">
+                <input type="text" id="new-team-name" placeholder="New Team Name">
+                <button onclick="addTeam()">Add Team</button>
+            </div>
+            <ul id="teams-list" class="team-list">
+                <!-- Teams will be loaded here -->
+            </ul>
+        </div>
+    </div>
+
+    <button class="save-button" onclick="saveTeams()">Save Configuration</button>
+
+    <script>
+        let availableDrivers = []; // This will be populated from the backend
+        let availableLogos = []; // This will be populated from the backend
+        let teams = {}; // { "Team Name": { drivers: [{id, name}], logo: "logo.png" } }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAvailableDrivers();
+            fetchAvailableLogos(); // Fetch available logos
+            loadTeams();
+        });
+
+        async function fetchAvailableDrivers() {
+            try {
+                const response = await fetch('/api/available_drivers');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        availableDrivers = data.drivers;
+                        renderAvailableDrivers();
+                    } else {
+                        console.error('Error fetching available drivers:', data.error);
+                    }
+                } else {
+                    console.error('Error fetching available drivers:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching available drivers:', error);
+            }
+        }
+
+        async function fetchAvailableLogos() {
+            try {
+                const response = await fetch('/api/team_logos');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        availableLogos = data.logos;
+                        renderTeams(); // Re-render teams to show logo dropdowns
+                    } else {
+                        console.error('Error fetching available logos:', data.error);
+                    }
+                } else {
+                    console.error('Error fetching available logos:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching available logos:', error);
+            }
+        }
+
+        function renderAvailableDrivers() {
+            const driverList = document.getElementById('available-drivers');
+            driverList.innerHTML = '';
+            availableDrivers.forEach(driver => {
+                const li = document.createElement('li');
+                li.textContent = driver.name;
+                li.dataset.driverId = driver.id;
+                li.classList.add('driver-item');
+                li.onclick = () => selectDriver(driver.id);
+                driverList.appendChild(li);
+            });
+        }
+
+        function selectDriver(driverId) {
+            const selected = document.querySelector('.driver-item.selected');
+            if (selected) {
+                selected.classList.remove('selected');
+            }
+            const newSelected = document.querySelector(`[data-driver-id="${driverId}"]`);
+            if (newSelected) {
+                newSelected.classList.add('selected');
+            }
+        }
+
+        function addTeam() {
+            const teamNameInput = document.getElementById('new-team-name');
+            const teamName = teamNameInput.value.trim();
+            if (teamName && !teams[teamName]) {
+                teams[teamName] = { drivers: [], logo: '' }; // Initialize with empty drivers array and empty logo
+                teamNameInput.value = '';
+                renderTeams();
+            }
+        }
+
+        function assignDriverToTeam(teamName) {
+            const selectedDriverElement = document.querySelector('.driver-item.selected');
+            if (selectedDriverElement) {
+                const driverId = parseInt(selectedDriverElement.dataset.driverId);
+                const driverName = selectedDriverElement.textContent;
+
+                // Remove driver from any other team first
+                for (const teamKey in teams) {
+                    teams[teamKey].drivers = teams[teamKey].drivers.filter(d => d.id !== driverId);
+                }
+
+                // Add to the selected team
+                if (!teams[teamName].drivers.some(d => d.id === driverId)) {
+                    teams[teamName].drivers.push({ id: driverId, name: driverName });
+                }
+                renderTeams();
+                selectedDriverElement.classList.remove('selected');
+            }
+        }
+
+        function removeDriverFromTeam(teamName, driverId) {
+            teams[teamName].drivers = teams[teamName].drivers.filter(d => d.id !== driverId);
+            renderTeams();
+        }
+
+        function updateTeamLogo(teamName, logoFilename) {
+            if (teams[teamName]) {
+                teams[teamName].logo = logoFilename;
+                renderTeams(); // Re-render to show the updated logo
+            }
+        }
+
+        function renderTeams() {
+            const teamsList = document.getElementById('teams-list');
+            teamsList.innerHTML = '';
+            for (const teamName in teams) {
+                const team = teams[teamName];
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <span>${teamName}</span>
+                        <select onchange="updateTeamLogo('${teamName}', this.value)">
+                            <option value="">No Logo</option>
+                            ${availableLogos.map(logo => `
+                                <option value="${logo}" ${team.logo === logo ? 'selected' : ''}>${logo}</option>
+                            `).join('')}
+                        </select>
+                        ${team.logo ? `<img src="/static/team_logos/${team.logo}" alt="${teamName} Logo" style="height: 24px; vertical-align: middle; margin-left: 10px;">` : ''}
+                    </div>
+                    <button onclick="assignDriverToTeam('${teamName}')">Assign Selected Driver</button>
+                    <div class="team-drivers">
+                        ${team.drivers.map(driver => `
+                            <span>${driver.name} <button onclick="removeDriverFromTeam('${teamName}', ${driver.id})">x</button></span>
+                        `).join('')}
+                    </div>
+                `;
+                teamsList.appendChild(li);
+            }
+        }
+
+        async function loadTeams() {
+            try {
+                const response = await fetch('/config/teams.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Ensure loaded data matches the expected structure
+                    for (const teamName in data) {
+                        if (!data[teamName].drivers) {
+                            data[teamName] = { drivers: data[teamName], logo: '' }; // Convert old format
+                        }
+                    }
+                    teams = data;
+                    renderTeams();
+                }
+            } catch (error) {
+                console.error('Error loading teams:', error);
+            }
+        }
+
+        async function saveTeams() {
+            console.log('Attempting to save teams:', teams); // Debugging line
+            try {
+                const response = await fetch('/save_teams', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(teams)
+                });
+                if (response.ok) {
+                    alert('Teams configuration saved successfully!');
+                    console.log('Teams configuration saved successfully!'); // Debugging line
+                } else {
+                    const errorText = await response.text();
+                    alert('Failed to save teams configuration: ' + errorText);
+                    console.error('Failed to save teams configuration:', response.status, errorText); // Debugging line
+                }
+            } catch (error) {
+                console.error('Error saving teams:', error);
+                alert('Failed to save teams configuration.');
+            }
+        }
+    </script>
+</body>
+</html>

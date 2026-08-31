@@ -1,0 +1,15 @@
+{
+  "activeColumns": [
+    "position",
+    "brands",
+    "carNumber",
+    "userName",
+    "bestLapTime",
+    "interval",
+    "gap"
+  ],
+  "driverNameFormat": "initial_last",
+  "focusedDriverEnabled": true,
+  "showFocusedDriverTeamLogo": false,
+  "overlayWindowEnabled": false
+}

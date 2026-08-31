@@ -1,0 +1,7 @@
+# Ignorar carpeta de logs
+logs/
+
+# Compilados con PyInstaller (usar build.cmd para regenerarlos)
+dist/
+build_pyi/
+__pycache__/

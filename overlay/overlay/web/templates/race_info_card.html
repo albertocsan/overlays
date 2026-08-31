@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información de la Carrera</title>
+    <link rel="stylesheet" href="/static/race_info_card.css">
+    <!-- Asegúrate de incluir Font Awesome si quieres usar los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<div id="race-info-card" style="display: none;">
+    <!-- El resto de tu HTML va aquí como lo proporcionaste -->
+    <div class="race-info-header">
+        <div class="race-info-series">EUROPEAN MASTER SERIES</div>
+        <div class="race-info-round">ROUND 6</div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="race-info-content">
+        <!-- Left Side - Circuit Info -->
+        <div class="race-info-left">
+            <div class="race-info-circuit-name" id="race-info-circuit-name">
+                Virginia International Raceway
+            </div>
+            
+            <div class="race-info-circuit-image-container">
+                <img src="/static/Hard_Rock_Stadium_Circuit_2022.svg" 
+                     alt="Circuit Layout" 
+                     class="race-info-circuit-image"
+                     id="race-info-circuit-image">
+            </div>
+            
+            <div class="race-info-circuit-details">
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">Configuration:</span>
+                    <span class="race-info-detail-value" id="race-info-config">Full Course</span>
+                </div>
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">Track length:</span>
+                    <span class="race-info-detail-value" id="race-info-length">5.22 km</span>
+                </div>
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">Country:</span>
+                    <span class="race-info-detail-value" id="race-info-country">USA</span>
+                </div>
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">Temperature:</span>
+                    <span class="race-info-detail-value" id="race-info-temp">21.5°</span>
+                </div>
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">City:</span>
+                    <span class="race-info-detail-value" id="race-info-city">Alton</span>
+                </div>
+                <div class="race-info-detail-item">
+                    <span class="race-info-detail-label">Altitude:</span>
+                    <span class="race-info-detail-value" id="race-info-altitude">166 m</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side - Weather & Season Info -->
+        <div class="race-info-right">
+            <div>
+                <div class="race-info-weather-title">Weather</div>
+                <div class="race-info-weather-grid">
+                    <div class="race-info-weather-item">
+                        <i class="fas fa-temperature-high race-info-weather-icon"></i>
+                        <span class="race-info-weather-value" id="race-info-weather-temp">18°C</span>
+                        <span class="race-info-weather-label">Temperature</span>
+                    </div>
+                    <div class="race-info-weather-item">
+                        <i class="fas fa-tint race-info-weather-icon"></i>
+                        <span class="race-info-weather-value" id="race-info-weather-humidity">76%</span>
+                        <span class="race-info-weather-label">Humidity</span>
+                    </div>
+                    <div class="race-info-weather-item">
+                        <i class="fas fa-cloud-sun race-info-weather-icon"></i>
+                        <span class="race-info-weather-value" id="race-info-weather-condition">Clear</span>
+                        <span class="race-info-weather-label">Condition</span>
+                    </div>
+                    <div class="race-info-weather-item">
+                        <i class="fas fa-wind race-info-weather-icon"></i>
+                        <span class="race-info-weather-value" id="race-info-weather-wind">19 Km/h</span>
+                        <span class="race-info-weather-label">Wind</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="race-info-season">
+                <div class="race-info-season-title">SEASON 5</div>
+                <div class="race-info-season-details">
+                    <div class="race-info-season-item" id="race-info-schedule">LUNES Y MARTES NOCHE</div>
+                    <div class="race-info-season-item" id="race-info-races">6 CARRERAS</div>
+                    <div class="race-info-season-item" id="race-info-championship">MASTERS GT3</div>
+                    <div class="race-info-season-item" id="race-info-broadcast">RETRANSMISIÓN EN DIRECTO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="race-info-footer">
+        <img src="/static/emslogo.png" class="race-info-logo">
+        <span class="race-info-url">www.europeanseries.com</span>
+        <img src="/static/emslogo.png" class="race-info-logo">
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/weekend_info')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+
+            // --- Lado Izquierdo - Información del Circuito ---
+            document.getElementById('race-info-circuit-name').textContent = data.TrackDisplayName;
+            document.getElementById('race-info-config').textContent = data.TrackConfigName;
+            document.getElementById('race-info-length').textContent = data.TrackLength;
+            document.getElementById('race-info-country').textContent = data.TrackCountry;
+            document.getElementById('race-info-temp').textContent = data.TrackSurfaceTemp; // Temperatura de la pista
+            document.getElementById('race-info-city').textContent = data.TrackCity;
+            document.getElementById('race-info-altitude').textContent = data.TrackAltitude;
+
+            // --- Lado Derecho - Información del Clima ---
+            document.getElementById('race-info-weather-temp').textContent = data.TrackAirTemp;
+            document.getElementById('race-info-weather-humidity').textContent = data.TrackRelativeHumidity;
+            document.getElementById('race-info-weather-condition').textContent = data.TrackSkies;
+            document.getElementById('race-info-weather-wind').textContent = data.TrackWindVel;
+            
+            // --- Mostrar la tarjeta ---
+            document.getElementById('race-info-card').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching race info:', error);
+        });
+});
+</script>
+
+</body>
+</html>
